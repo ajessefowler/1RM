@@ -14,7 +14,7 @@ router.get('/login', (req, res) => {
             else {
                 bcrypt.compare(req.body.password, user.password, (error, match) => {
                     if (error) res.status(500).json(error)
-                    else if (match) res.status(200).json({token: generateToken(user)})
+                    else if (match) res.status(200).json({user: user, token: generateToken(user)})
                     else res.status(403).json({error: 'passwords do not match'})
                 });
             }
@@ -35,7 +35,7 @@ router.post('/register', (req, res) => {
                         const newUser = User({username: req.body.username, password: hash});
                         newUser.save()
                             .then(user => {
-                                res.status(200).json({token: generateToken(user)});
+                                res.status(200).json({user: user, token: generateToken(user)});
                             })
                             .catch(error => {
                                 res.status(500).json(error);
