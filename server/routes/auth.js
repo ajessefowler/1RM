@@ -3,11 +3,12 @@ const router = express.Router();
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const middleware = require('../middleware');
 const tokenSecret = 'kl25aer67457hdfsh235';
 const rounds = 10;
 
 /* Log user in and return token. */
-router.get('/login', (req, res) => {
+router.post('/login', (req, res) => {
     User.findOne({username: req.body.username})
         .then(user => {
             if (!user) res.status(404).json({error: 'no user found'})
@@ -47,6 +48,10 @@ router.post('/register', (req, res) => {
             }
         });
 });
+
+router.post('/verifyJwt', middleware.verify, (req, res) => {
+    res.status(200).json(req.user);
+})
 
 function generateToken(user) {
     return jwt.sign({data: user}, tokenSecret, {expiresIn: '24h'});

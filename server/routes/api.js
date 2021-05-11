@@ -1,12 +1,16 @@
 
 const express = require('express');
 const router = express.Router();
+const middleware = require('../middleware');
 const User = require('../models/user');
 const Lift = require('../models/lift');
 const LiftInstance = require('../models/liftinstance');
 
 /* Calculate and return E1RM. */
-router.get('/1rm', (req, res) => {
+router.post('/1rm', (req, res) => {
+    // res.setHeader('Access-Control-Allow-Origin', '*');
+    // res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    // res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
     // Request needs weight and reps
     res.status(200).json({ erm: calculateE1RM(req.body.weight, req.body.reps)});
 });
