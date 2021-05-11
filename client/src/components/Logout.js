@@ -8,6 +8,7 @@ class Logout extends Component {
         e.preventDefault();
         AuthService.logout();
         this.props.history.push('/');
+        window.location.reload();
     }
 
     render() {

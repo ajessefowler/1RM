@@ -1,4 +1,5 @@
 import React from "react";
+import Login from '../components/LoginV2';
 
 class OneRepMaxForm extends React.Component {
     constructor(props) {
@@ -46,19 +47,19 @@ class OneRepMaxForm extends React.Component {
     render() {
         return (
             <div>
-            <h2>Welcome to 1RM</h2>
-            <form onSubmit={this.handleSubmit}>
-                <label>
-                    Weight:
-                    <input type="text" value={this.state.weight} onChange={this.handleWeightChange} name="weight" />
-                </label>
-                <label>
-                    Reps:
-                    <input type="text" value={this.state.reps} onChange={this.handleRepsChange} name="reps" />
-                </label>
-                <input type="submit" value="Submit" />
-                <p>Your 1RM is {this.state.erm} lbs.</p>
-            </form>
+                <h2>Welcome to 1RM</h2>
+                <form onSubmit={this.handleSubmit}>
+                    <label>
+                        Weight:
+                        <input type="text" value={this.state.weight} onChange={this.handleWeightChange} name="weight" />
+                    </label>
+                    <label>
+                        Reps:
+                        <input type="text" value={this.state.reps} onChange={this.handleRepsChange} name="reps" />
+                    </label>
+                    <input type="submit" value="Submit" />
+                    <p>Your 1RM is {this.state.erm} lbs.</p>
+                </form>
             </div>
         );
     }

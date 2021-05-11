@@ -49,7 +49,7 @@ function Login({setToken}) {
                 console.log(localStorage.getItem('username'));
                 console.log(localStorage.getItem('token'));
                 console.log(data);
-                setToken(localStorage.getItem('token'));
+                if (setToken) setToken(localStorage.getItem('token'));
                 history.push('/dashboard');
             })
             .catch(error => {
@@ -65,6 +65,7 @@ function Login({setToken}) {
     return localStorage.getItem('token') ? <Dashboard /> : (
         <div className="col-md-12">
           <div className="card card-container">
+            <h3>Login</h3>
     
             <Form onSubmit={handleLogin} ref={form}>
               <div className="form-group">
@@ -114,8 +115,8 @@ function Login({setToken}) {
       );
 }
 
-Login.propTypes = {
-    setToken: PropTypes.func.isRequired
-}
+// Login.propTypes = {
+//     setToken: PropTypes.func.isRequired
+// }
 
 export default Login;
