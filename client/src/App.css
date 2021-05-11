@@ -2,6 +2,13 @@
   text-align: center;
 }
 
+.lift {
+  background-color: rgb(151, 151, 151);
+  color: black;
+  border-radius: 5px;
+  box-shadow: 0px 4px 6px rgb(41, 41, 41);
+}
+
 .card > h3 {
   color: black;
 }

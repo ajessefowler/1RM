@@ -16,7 +16,7 @@ router.post('/1rm', (req, res) => {
 });
 
 /* Get lifts for user. */
-router.get('/lifts', (req, res) => {
+router.post('/lifts', (req, res) => {
     // Request needs username
     // We need to find the user and ensure the lift is for the right user
     User.findOne({username: req.body.username})
@@ -42,7 +42,7 @@ router.get('/lifts', (req, res) => {
 });
 
 /* Get all instances of a lift. */
-router.get('/lifts/instances', (req, res) => {
+router.post('/lifts/instances', (req, res) => {
     // Request needs name of lift and username
     User.findOne({username: req.body.username})
         .then(user => {
