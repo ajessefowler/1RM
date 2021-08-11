@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import Chartjs from 'chart.js';
-import {Line} from 'react-chartjs-2';
 
 const chartConfig = {
   type: 'line',

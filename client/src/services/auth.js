@@ -2,12 +2,12 @@ import authHeader from './authHeader';
 
 const REGISTER_URL = 'http://localhost:3001/api/auth/register';
 const LOGIN_URL = 'http://localhost:3001/api/auth/login';
-const VERIFY_URL = 'http://localhost:3001/api/auth/verifyJwt';
+const VERIFY_URL = 'http://localhost:3001/api/auth/isLoggedIn';
 
-const register = (username, password) => {
+async function register(username, password) {
     const input = {username: username, password: password};
 
-    fetch(REGISTER_URL, {
+    await fetch(REGISTER_URL, {
         method: 'POST',
         headers: {'Content-Type':'application/json'},
         body: JSON.stringify(input)
@@ -62,7 +62,7 @@ const isLoggedIn = () => {
     .then(response => response.json())
     .then (dataJson => {
         console.log(dataJson);
-        return true;
+        return false;
     })
     .catch(error => {
         console.error('Error:', error);

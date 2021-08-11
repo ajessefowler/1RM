@@ -1,32 +1,35 @@
 import React, { useState, useEffect } from "react";
-import CanvasJSReact from '../canvasjs.react';
-import LiftInstance from '../components/LiftInstance';
-const CanvasJS = CanvasJSReact.CanvasJS;
-const CanvasJSChart = CanvasJSReact.CanvasJSChart;
+import LineChart from '../components/LineChart';
 
 function Lift(props) {
     const [instances, setInstances] = useState([]);
     const INSTANCES_URL = 'http://localhost:3001/api/lifts/instances';
-    const options = {
-        title: {
-          text: props.name + ' Estimated 1RM'
-        },
-        data: [{				
-                  type: "spline",
-                  xValueFormat: "MM-DD-YYYY",
-                  dataPoints: []
-                      
-                    //   { label: "Apple",  y: 10  },
-                    //   { label: "Orange", y: 15  },
-                    //   { label: "Banana", y: 25  },
-                    //   { label: "Mango",  y: 30  },
-                    //   { label: "Grape",  y: 28  }
-                    //   ]
-         }]
-     }
+
+    const handleDelete = (event) => {
+        const url = 'http://localhost:3001/api/lifts/delete';
+        const input = {name: props.name, username: localStorage.getItem('username')};
+
+        console.log('lift deleted');
+        event.preventDefault();
+
+        fetch(url, {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify(input)
+        })
+        .then(response => response.json())
+        .then(dataJson => {
+            props.setRemovedLift(props.name);
+           console.log(props.name + ' deleted');
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
 
     useEffect(() => {
         const input = {username: localStorage.getItem('username'), name: props.name};
+        
         fetch(INSTANCES_URL, {
             method: 'POST',
             headers: {'Content-Type':'application/json'},
@@ -35,30 +38,28 @@ function Lift(props) {
         .then(response => response.json())
         .then(dataJson => {
             setInstances(dataJson);
-            dataJson.forEach(function(instance) {
-                options.data[0].dataPoints.push({x: new Date(instance.date), y: instance.erm})
-            });
-            console.log(dataJson);
             return dataJson;
         })
         .catch(error => {
             console.error('Error:', error);
         });
-    }, []);
+    }, [props.newInstance]);
 
     return instances.length <= 0 ? (
         <div className="lift">
+            <p onClick={handleDelete} className="deleteLift">Delete</p>
+            <div className="liftHeader">
+                <h2>{props.name}</h2>
+            </div>
             <p>No instances for this lift.</p>
         </div>
     ) : (
         <div className="lift">
-            <p>{props.name}</p>
-            <CanvasJSChart options = {options} />
-            <div>
-            {instances.map((item, index) => (
-                <LiftInstance key={index} date={item.date} erm={Math.round(item.erm)} weight={item.weight} reps={item.reps}></LiftInstance>
-            ))}
+            <p onClick={handleDelete} className="deleteLift">Delete</p>
+            <div className="liftHeader">
+                <h2>{props.name}</h2>
             </div>
+            <LineChart data={instances} name={props.name}/>
         </div>
     );
 }

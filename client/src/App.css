@@ -1,49 +1,300 @@
+p, label, h2 {
+  color: rgb(29, 29, 29);
+  cursor: default;
+}
+
+p, label {
+  font-size: 12pt;
+}
+
+input, button {
+  background-color: white;
+  border: none;
+}
+
+select {
+  /* TODO - Change to be responsive to content */
+  width: 130px;
+  margin-right: 20px !important;
+  font-size: 12pt !important;
+  border: 1px solid rgb(212, 212, 212);
+}
+
+input[type=text] {
+  background-color: white;
+  border: 1px solid rgb(212, 212, 212);
+  border-radius: 4px;
+}
+
+input[type=submit], button {
+  font-size: 12pt !important;
+  height: 40px;
+  border-radius: 20px !important;
+  padding: 0 18px;
+  margin: 5px;
+  border: 1px solid rgb(212, 212, 212);
+}
+
+.noBorder {
+  border: none !important;
+}
+
+.light > p {
+  color: white;
+}
+
+.light > input {
+  background-color: rgb(92, 92, 92);
+  border: 1px solid rgb(53, 52, 52);
+  color: white;
+}
+
+.welcomeMsg {
+  padding-bottom: 20px;
+}
+
+.createAccount {
+  padding-top: 35px;
+}
+
+.closeAddLift {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+}
+
+.closeAddLift > p {
+  color: white;
+  font-size: 20pt;
+  cursor: pointer;
+}
+
+.formItem {
+  position: relative;
+  bottom: 13px;
+}
+
+.formItem > p {
+  margin-bottom: 0;
+}
+
+.formItem > input {
+  font-size: 12pt;
+  margin: 0 20px;
+}
+
 .App {
   text-align: center;
 }
 
+.login, .register {
+  padding: 20px 50px;
+}
+
+.addButton {
+  background-color: rgba(10, 10, 10, 0.8);
+  width: 350px;
+  height: 150px;
+  border-radius: 8px;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  right: 75px;
+  bottom: 50px;
+  padding: 0 19px;
+  box-shadow: 0px 2px 8px rgb(195, 195, 195);
+  transition: all .2s;
+  transform-origin: bottom right;
+}
+
+.addButton > h2 {
+  color: rgba(250, 250, 250, 1);
+  cursor: pointer;
+  margin-bottom: 0;
+  font-size: 18pt;
+}
+
+.addButtonSymbol {
+  /* Position and size elements in case we want circle background */
+  position: absolute;
+  right: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 18px;
+  height: 36px;
+  width: 36px;
+}
+
+.addButtonSymbol > h2 {
+  color: rgba(250, 250, 250, 1);
+  margin-bottom: 0.3rem;
+  cursor: pointer;
+}
+
+.collapsed {
+  /* Note: transform is more efficient but this is easier */
+  height: 50px;
+  width: 150px;
+  background-color: rgba(115, 115, 115, 0.8);
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.expanded {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10px;
+  /*cursor: default;*/
+}
+
+.expanded > h2 {
+  padding: 10px 0 12px;
+  cursor: default;
+}
+
+.welcome {
+  align-self: flex-start;
+  padding: 40px 90px 40px 70px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.welcome > h2 {
+  margin-top: 10px;
+  margin-right: 20px;
+}
+
+.inlineLink {
+  margin-left: 6px;
+}
+
+.repmax {
+  width: 65%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.rmform {
+  display: flex;
+  /* Padding-right centers the form inside its container */
+  padding-right: 15px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 13px;
+  margin: 13px 30px 10px;
+  border-bottom: 1px solid rgb(212, 212, 212);
+}
+
+.rmdisplay {
+  margin: 5px 0 10px;
+}
+
+.formContainer {
+  height: 220px;
+  box-shadow: 0px 1px 8px rgb(206, 206, 206);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.rmform > label {
+  margin: 5px 20px;
+}
+
+.dash {
+  display: flex;
+  width: 100%;
+  padding: 0 50px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 .lift {
-  background-color: rgb(151, 151, 151);
-  color: black;
-  border-radius: 5px;
-  box-shadow: 0px 4px 6px rgb(41, 41, 41);
+  background-color: rgb(255, 255, 255);
+  color: rgb(29, 29, 29);
+  border-radius: 8px;
+  box-shadow: 0px 2px 8px rgb(206, 206, 206);
+  padding: 20px 40px 30px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  max-width: 45%;
+  min-width: 300px;
+  position: relative;
+}
+
+@media only screen and (max-width: 950px) {
+  .lift {
+    max-width: 100%;
+  }
+}
+
+@media only screen and (min-width: 1800px) {
+  .lift {
+    max-width: 30%;
+  }
+}
+
+.deleteLift {
+  position: absolute;
+  top: 5px;
+  left: 10px;
+}
+
+.liftHeader > h2 {
+  font-size: 18pt;
+}
+
+.chart {
+  margin-bottom: 15px;
+  /* width: 100% causes one lift per row only! */
+  width: 100%;
 }
 
 .card > h3 {
   color: black;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.logOut {
+  position: absolute;
+  top: 30px;
+  left: 50px;
 }
 
 .App-header {
-  background-color: #353535;
+  background-color: #f1f1f1;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: black;
+  padding-bottom: 50px;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.App-header > div {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }

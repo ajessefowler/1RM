@@ -1,5 +1,7 @@
 import {Line} from 'react-chartjs-2';
 
+const liftColors = new Map();
+
 const dotColors = [
     'rgba(54, 162, 235, 0.9)',
     'rgba(195, 42, 42, 0.9)',
@@ -16,22 +18,65 @@ const lineColors = [
     'rgba(51, 51, 51, 0.8)'
 ]
 
+/*
+ *  Returns a random integer index within the range of the size of the color arrays.
+ */
 function getRandomIndex() {
     const max = dotColors.length - 1;
     return Math.floor(Math.random() * (Math.floor(max) + 1));
 }
 
-const LineChart = (props) => {
+function valueIsInMap(val)  {
+    for (let v of liftColors.values()) {
+        if (v == val) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/*
+ *  This function ensures that as many lifts have a unique line color as possible.
+ */
+function setLiftColor(data) {
+    let colorIndex = -1;
+
+    if (localStorage.colorIndices) {
+        const colorIndices = new Map(JSON.parse(localStorage.colorIndices));
+
+        if (!colorIndices.has(data[0].lift)) {
+            colorIndex = getRandomIndex();
     
+            // If we have unused colors, continue picking new index until we get unused color
+            while (liftColors.size < dotColors.length && valueIsInMap(colorIndex)) {
+                colorIndex = getRandomIndex();
+            }
+    
+            liftColors.set(data[0].lift, colorIndex);
+            localStorage.colorIndices = JSON.stringify(Array.from(liftColors));
+        } else {
+            // Get color from localStorage
+            colorIndex = colorIndices.get(data[0].lift);
+        }
+    } else {
+        colorIndex = getRandomIndex();
+        liftColors.set(data[0].lift, colorIndex);
+        localStorage.colorIndices = JSON.stringify(Array.from(liftColors));
+    }
+
+    return colorIndex;
+}
+
+const LineChart = (props) => {
     const dates = props.data.map(instance => {
         const date = instance.date;
         return date.substring(5,10) + '-' + date.substring(0,4);
     });
     const erms = props.data.map(instance => Math.round(instance.erm));
     const weights = props.data.map(instance => instance.weight);
-    console.log(weights);
     const reps = props.data.map(instance => instance.reps);
-    const colorIndex = getRandomIndex();
+
+    const colorIndex = setLiftColor(props.data)
     const dotColor = dotColors[colorIndex];
     const lineColor = lineColors[colorIndex];
 

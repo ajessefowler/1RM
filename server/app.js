@@ -17,7 +17,8 @@ const mongoose = require('mongoose');
 const mongoDB = 'mongodb+srv://jesse:dbtest7241@cluster0.fhnwr.mongodb.net/1rm?retryWrites=true&w=majority';
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
 const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.on('error', console.error.bind(console, 'MongoDB connection error:'))
+  .catch(error => console.log(error));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

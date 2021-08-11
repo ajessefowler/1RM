@@ -1,5 +1,4 @@
 import React, { useState, useRef } from 'react';
-import PropTypes from 'prop-types';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import CheckButton from 'react-validation/build/button';
@@ -46,11 +45,18 @@ function Login({setToken}) {
         if (checkBtn.current.context._errors.length === 0) {
             AuthService.login(username, password)
             .then(data => {
-                console.log(localStorage.getItem('username'));
-                console.log(localStorage.getItem('token'));
-                console.log(data);
-                if (setToken) setToken(localStorage.getItem('token'));
-                history.push('/dashboard');
+                if (localStorage.getItem('username') && localStorage.getItem('token') != 'null') {
+                  console.log(localStorage.getItem('username'));
+                  console.log(localStorage.getItem('token'));
+                  console.log(data);
+                  if (setToken) setToken(localStorage.getItem('token'));
+                  // TODO - lifts are not initialized in Dashboard with this
+                  // TODO - replace push with <Redirect />
+                  history.push('/dashboard');
+                } else {
+                  setLoading(false);
+                  setMessage('Incorrect username or password.');
+                }
             })
             .catch(error => {
                 setLoading(false);
@@ -64,7 +70,7 @@ function Login({setToken}) {
     // If there is already a token, prevent user from logging in again
     return localStorage.getItem('token') ? <Dashboard /> : (
         <div className="col-md-12">
-          <div className="card card-container">
+          <div className="card card-container login">
             <h3>Login</h3>
     
             <Form onSubmit={handleLogin} ref={form}>
@@ -114,9 +120,5 @@ function Login({setToken}) {
         </div>
       );
 }
-
-// Login.propTypes = {
-//     setToken: PropTypes.func.isRequired
-// }
 
 export default Login;

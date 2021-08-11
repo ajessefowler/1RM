@@ -1,12 +1,38 @@
 import React, { useState, useEffect } from "react";
-import OneRepMaxForm from '../components/OneRepMaxForm';
 
-const AddButton = () => {
+const AddButton = (props) => {
     const [isOpen, setIsOpen] = useState(false);
+    const [liftName, setLiftName] = useState('');
 
     const handleButtonClick = (event) => {
         if (isOpen) setIsOpen(false);
         else setIsOpen(true);
+    }
+
+    const handleAddLift = (event) => {
+        const url = 'http://localhost:3001/api/lifts/add';
+        const input = {name: liftName, username: localStorage.getItem('username')};
+
+        event.preventDefault();
+
+        fetch (url, {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify(input)
+        })
+        .then(response => response.json())
+        .then(dataJson => {
+            props.setNewLift(dataJson);
+            setLiftName('');
+            setIsOpen(false);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+    const handleNameChange = (event) => {
+        setLiftName(event.target.value);
     }
 
     return (
@@ -17,9 +43,19 @@ const AddButton = () => {
                     <h2>+</h2>
                 </div>
               </div>
-            : <div onClick={handleButtonClick} className="addButton">
-            <h2>Expanded</h2>
-          </div>}
+            : <div className="addButton expanded">
+                <h2>Add Lift</h2>
+                <form className="rmform noBorder" onSubmit={handleAddLift}>
+                    <div className="formItem light">
+                        <p>Lift Name</p>
+                        <input type="text" value={liftName} onChange={handleNameChange} name="liftName" />
+                    </div>
+                    <input className="submitBtn" type="submit" value="Add" />
+                </form>
+                <div className="closeAddLift">
+                    <p onClick={handleButtonClick}>x</p>
+                </div>
+              </div>}
         </div>
     )
 }

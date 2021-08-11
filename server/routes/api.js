@@ -143,7 +143,60 @@ router.post('/lifts/add', (req, res) => {
         });
 });
 
+/* Remove a lift */
+router.post('/lifts/delete', (req, res) => {
+    // Request needs name of lift and username
+    const name = req.body.name;
+    const username = req.body.username;
+
+    User.findOne({username: username})
+        .then(user => {
+            if (user) {
+                /* Delete all instances before deleting lift itself */
+                deleteAllInstances(name, user);
+
+                Lift.findOneAndDelete({name: name, user: user})
+                .then(response => {
+                    res.status(200).json(response);
+                })
+                .catch(error => {
+                    res.status(500).json(error);
+                });
+            } else {
+                res.status(404).json({error: 'no user found'});
+            }
+        })
+        .catch(error => {
+            res.status(500).json(error);
+        });
+});
+
+router.post('/lifts/instances/delete', (req, res) => {
+    // Request needs lift name, username, date, weight, and reps to uniquely id
+    const liftName = req.body.name;
+    const username = req.body.username;
+    const date = req.body.date;
+    const weight = req.body.weight;
+    const reps = req.body.reps;
+});
+
+async function deleteAllInstances(liftName, user) {
+    Lift.findOne({name: liftName, user: user})
+    .then(lift => {
+        LiftInstance.deleteMany({lift: lift})
+        .then(deleted => {
+            return deleted.deletedCount;
+        });
+    })
+    .catch(error => {
+        console.log('error');
+    })
+}
+
 function calculateE1RM(weight, reps) {
+    // With only one rep, we assume that is a max
+    if (reps == 1) return weight;
+
     // Use 3 different estimation techniques
     const epley = weight * (1 + (reps / 30));
     const brzycki = weight * (36 / (37 - reps));
