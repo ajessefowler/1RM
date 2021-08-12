@@ -7,12 +7,10 @@ const Delete = (props) => {
     }
 
     return (
-        <div className="panel">
-            <p>{props.date}</p>
-            <p>{props.e1rm} lbs</p>
-            <p>{props.weight} lbs</p>
-            <p>{props.reps} reps</p>
-            <p className="modifyClose" onClick={closeModify}>X</p>
+        <div className="deleteConfirm">
+            <p>Are you sure you want to delete this lift?</p>
+            <button>Delete</button>
+            <button>Cancel</button>
         </div>
     );
 }

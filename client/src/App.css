@@ -49,6 +49,31 @@ input[type=submit], button {
   color: white;
 }
 
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(120, 120, 120, 0.9);
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 13px 30px;
+}
+
+.header > h2 {
+  color: white;
+  margin-bottom: 0;
+}
+
+.headerBtn {
+  background-color: rgba(61, 61, 61, 0.8);
+  background-color: transparent;
+  border: 1px solid rgba(114, 114, 114, 0.8);
+  color: white;
+}
+
 .welcomeMsg {
   padding-bottom: 20px;
 }
@@ -186,7 +211,7 @@ input[type=submit], button {
 
 .welcome {
   align-self: flex-start;
-  padding: 40px 90px 40px 70px;
+  padding: 85px 20px 40px 70px;
   width: 100%;
   display: flex;
   justify-content: flex-end;
@@ -319,9 +344,6 @@ input[type=submit], button {
 }
 
 .logOut {
-  position: absolute;
-  top: 30px;
-  left: 50px;
 }
 
 .App-header {

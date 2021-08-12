@@ -116,6 +116,7 @@ const LineChart = (props) => {
         ]
     }
 
+    // TODO - make cursor pointer when hovering over data points
     const options = {
         responsive: true, 
         maintainAspectRatio: true,
