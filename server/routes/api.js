@@ -46,7 +46,6 @@ router.post('/lifts/instances', (req, res) => {
 
     Lift.findById(liftId)
         .then(lift => {
-            console.log(lift);
             LiftInstance.find({ lift: lift })
                 .then(instances => {
                     // Return instances even if there are none
@@ -65,6 +64,8 @@ router.post('/lifts/instances', (req, res) => {
 router.post('/lifts/instances/add', (req, res) => {
     // Request needs name of lift, username, weight, reps, and date
     const name = req.body.name;
+
+    // TODO - instead of getting user and lift, send liftId and findById on lift
 
     // We need to find the user and ensure the lift is for the right user
     User.findOne({ username: req.body.username })
@@ -135,6 +136,16 @@ router.post('/lifts/add', (req, res) => {
 
 router.post('/lifts/modify', (req, res) => {
     // Request needs lift id and new name
+    const liftId = req.body.id;
+    const newName = req.body.newName;
+
+    Lift.findByIdAndUpdate(liftId, {name: newName})
+    .then(response => {
+        res.status(200).json(response);
+    })
+    .catch(error => {
+        res.status(500).json(error);
+    });
 });
 
 /* Remove a lift */
