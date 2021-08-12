@@ -153,7 +153,7 @@ router.post('/lifts/delete', (req, res) => {
         .then(user => {
             if (user) {
                 /* Delete all instances before deleting lift itself */
-                deleteAllInstances(name, user);
+                const deletedCount = deleteAllInstances(name, user);
 
                 Lift.findOneAndDelete({name: name, user: user})
                 .then(response => {
@@ -178,6 +178,8 @@ router.post('/lifts/instances/delete', (req, res) => {
     const date = req.body.date;
     const weight = req.body.weight;
     const reps = req.body.reps;
+
+    // TODO - complete this function to delete individual instances
 });
 
 async function deleteAllInstances(liftName, user) {

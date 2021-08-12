@@ -1,4 +1,6 @@
+import React, { useState} from 'react';
 import {Line} from 'react-chartjs-2';
+import Modify from './Modify';
 
 const liftColors = new Map();
 
@@ -26,6 +28,7 @@ function getRandomIndex() {
     return Math.floor(Math.random() * (Math.floor(max) + 1));
 }
 
+/* Check if color is already in map */
 function valueIsInMap(val)  {
     for (let v of liftColors.values()) {
         if (v == val) {
@@ -72,13 +75,35 @@ const LineChart = (props) => {
         const date = instance.date;
         return date.substring(5,10) + '-' + date.substring(0,4);
     });
+
+    // State
+    const [modifyIsOpen, setModifyIsOpen] = useState(false);
+    const [date, setDate] = useState('');
+    const [e1rm, setE1rm] = useState(0);
+    const [rep, setRep] = useState('');
+    const [weight, setWeight] = useState('');
+
+    // Data arrays
     const erms = props.data.map(instance => Math.round(instance.erm));
     const weights = props.data.map(instance => instance.weight);
     const reps = props.data.map(instance => instance.reps);
 
+    // Graph colors
     const colorIndex = setLiftColor(props.data)
     const dotColor = dotColors[colorIndex];
     const lineColor = lineColors[colorIndex];
+
+    const handleClick = (event, elements) => {
+        if (elements[0] && event) {
+            const index = elements[0].index;
+
+            setDate(event.chart.tooltip.title[0]);
+            setE1rm(erms[index]);
+            setRep(reps[index]);
+            setWeight(weights[index]);
+            setModifyIsOpen(true);
+        }
+    }
 
     const data = {
         labels: dates,
@@ -94,6 +119,10 @@ const LineChart = (props) => {
     const options = {
         responsive: true, 
         maintainAspectRatio: true,
+        onClick: handleClick,
+        animation: {
+            duration: 0
+        },
         plugins: {
             legend: {
                 display: false
@@ -124,6 +153,7 @@ const LineChart = (props) => {
     return (
         <div className="chart">
             <Line data={data} options = {options}/>
+            {(modifyIsOpen) ? <Modify setModifyIsOpen={setModifyIsOpen} date={date} e1rm={e1rm} reps={rep} weight={weight} /> : ''}
         </div>
       );
 };
