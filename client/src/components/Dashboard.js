@@ -45,7 +45,7 @@ const Dashboard = () => {
                 : <h2 className="welcome"></h2>}
             <div className="dash">
                 {lifts.map((item, index) => (
-                    <Lift key={index} name={item.name} newInstance={newInstance} setRemovedLift={setRemovedLift}/>
+                    <Lift key={index} id={item._id} name={item.name} newInstance={newInstance} setRemovedLift={setRemovedLift}/>
                 ))}
             </div>
             <AddLift setNewLift={setNewLift}/>

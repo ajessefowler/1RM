@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import LineChart from '../components/LineChart';
 
 function Lift(props) {
+    const id = props.id;
     const [instances, setInstances] = useState([]);
     const [deletedInstance, setDeletedInstance] = useState([]);
     const INSTANCES_URL = 'http://localhost:3001/api/lifts/instances';
@@ -10,7 +11,6 @@ function Lift(props) {
         const url = 'http://localhost:3001/api/lifts/delete';
         const input = {name: props.name, username: localStorage.getItem('username')};
 
-        console.log('lift deleted');
         event.preventDefault();
 
         fetch(url, {
@@ -21,7 +21,7 @@ function Lift(props) {
         .then(response => response.json())
         .then(dataJson => {
             props.setRemovedLift(props.name);
-           console.log(props.name + ' deleted');
+            console.log(props.name + ' deleted');
         })
         .catch(error => {
             console.error('Error:', error);
@@ -29,7 +29,7 @@ function Lift(props) {
     }
 
     useEffect(() => {
-        const input = {username: localStorage.getItem('username'), name: props.name};
+        const input = {id: id};
         
         fetch(INSTANCES_URL, {
             method: 'POST',

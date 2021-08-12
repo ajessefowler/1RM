@@ -41,30 +41,20 @@ router.post('/lifts', (req, res) => {
         });
 });
 
-/* Get all instances of a lift. */
 router.post('/lifts/instances', (req, res) => {
-    // Request needs name of lift and username
-    User.findOne({ username: req.body.username })
-        .then(user => {
-            if (user) {
-                Lift.findOne({ name: req.body.name, user })
-                    .then(lift => {
-                        LiftInstance.find({ lift: lift })
-                            .then(instances => {
-                                // Return instances even if there are none
-                                res.status(200).json(instances);
-                            })
-                            .catch(error => {
-                                res.status(500).json(error);
-                            });
-                    })
-                    .catch(error => {
-                        res.status(500).json(error);
-                    });
-            } else {
-                // Need User to get lifts, return error
-                res.status(404).json({ error: 'no user found' });
-            }
+    const liftId = req.body.id;
+
+    Lift.findById(liftId)
+        .then(lift => {
+            console.log(lift);
+            LiftInstance.find({ lift: lift })
+                .then(instances => {
+                    // Return instances even if there are none
+                    res.status(200).json(instances);
+                })
+                .catch(error => {
+                    res.status(500).json(error);
+                });
         })
         .catch(error => {
             res.status(500).json(error);
@@ -143,6 +133,10 @@ router.post('/lifts/add', (req, res) => {
         });
 });
 
+router.post('/lifts/modify', (req, res) => {
+    // Request needs lift id and new name
+});
+
 /* Remove a lift */
 router.post('/lifts/delete', (req, res) => {
     // Request needs name of lift and username
@@ -175,17 +169,17 @@ router.post('/lifts/instances/delete', (req, res) => {
     const instanceId = req.body.id;
 
     LiftInstance.findByIdAndDelete(instanceId)
-    .then(response => {
-        if (response) {
-            console.log('deleted instance ' + instanceId);
-            res.status(200).json(response);
-        } else {
-            res.status(404).json({ error: 'no instance found' });
-        }
-    })
-    .catch(error => {
-        res.status(500).json(error);
-    })
+        .then(response => {
+            if (response) {
+                console.log('deleted instance ' + instanceId);
+                res.status(200).json(response);
+            } else {
+                res.status(404).json({ error: 'no instance found' });
+            }
+        })
+        .catch(error => {
+            res.status(500).json(error);
+        })
 });
 
 router.post('/lifts/instances/modify', (req, res) => {
@@ -195,7 +189,7 @@ router.post('/lifts/instances/modify', (req, res) => {
     const newReps = req.body.reps;
 
     LiftInstance.findByIdAndUpdate(instanceId)
-    .then()
+        .then()
 
     // TODO - finish this method
 });
