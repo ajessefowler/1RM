@@ -8,9 +8,6 @@ const LiftInstance = require('../models/liftinstance');
 
 /* Calculate and return E1RM. */
 router.post('/1rm', (req, res) => {
-    // res.setHeader('Access-Control-Allow-Origin', '*');
-    // res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    // res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
     // Request needs weight and reps
     res.status(200).json({ erm: calculateE1RM(req.body.weight, req.body.reps) });
 });
@@ -18,7 +15,6 @@ router.post('/1rm', (req, res) => {
 /* Get lifts for user. */
 router.post('/lifts', (req, res) => {
     // Request needs username
-    // We need to find the user and ensure the lift is for the right user
     User.findOne({ username: req.body.username })
         .then(user => {
             if (user) {
@@ -139,13 +135,13 @@ router.post('/lifts/modify', (req, res) => {
     const liftId = req.body.id;
     const newName = req.body.newName;
 
-    Lift.findByIdAndUpdate(liftId, {name: newName})
-    .then(response => {
-        res.status(200).json(response);
-    })
-    .catch(error => {
-        res.status(500).json(error);
-    });
+    Lift.findByIdAndUpdate(liftId, { name: newName })
+        .then(response => {
+            res.status(200).json(response);
+        })
+        .catch(error => {
+            res.status(500).json(error);
+        });
 });
 
 /* Remove a lift */
@@ -195,14 +191,20 @@ router.post('/lifts/instances/delete', (req, res) => {
 
 router.post('/lifts/instances/modify', (req, res) => {
     const instanceId = req.body.id;
-    const newDate = req.body.date;
-    const newWeight = req.body.weight;
-    const newReps = req.body.reps;
+    const oldDate = req.body.oldDate;
+    const oldWeight = req.body.oldWeight;
+    const oldReps = req.body.oldReps;
+    const newDate = req.body.date ? req.body.date : oldDate;
+    const newWeight = req.body.weight ? req.body.weight : oldWeight;
+    const newReps = req.body.reps ? req.body.reps : oldReps;
 
-    LiftInstance.findByIdAndUpdate(instanceId)
-        .then()
-
-    // TODO - finish this method
+    LiftInstance.findByIdAndUpdate(instanceId, {date: newDate, weight: newWeight, reps: newReps})
+        .then(response => {
+            res.status(200).json(response);
+        })
+        .catch(error => {
+            res.status(500).json(error);
+        });
 });
 
 // Delete all instances of a lift so the lift can be deleted
