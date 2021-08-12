@@ -2,6 +2,7 @@ import React from "react";
 import Login from '../components/LoginV2';
 import useToken from '../hooks/useToken';
 import DatePicker from "react-datepicker";
+import calculate1RM from "../services/repMaxCalc";
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -38,12 +39,14 @@ class OneRepMaxForm extends React.Component {
     }
 
     handleSubmit(event) {
-        const url = 'http://localhost:3001/api/1rm';
-        const input = { weight: this.state.weight, reps: this.state.reps };
-
         event.preventDefault();
 
-        fetch(url, {
+        const erm = calculate1RM(this.state.weight, this.state.reps);
+        this.setState({ erm: Math.round(erm), message: 'Your e1RM is ' + Math.round(erm) + ' lbs.' });
+
+        return erm;
+
+        /* fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(input)
@@ -55,7 +58,7 @@ class OneRepMaxForm extends React.Component {
             })
             .catch(error => {
                 console.error('Error:', error);
-            });
+            }); */
     }
 
     handleLiftSelect(event) {

@@ -15,40 +15,41 @@ const Dashboard = () => {
     const [removedLift, setRemovedLift] = useState({});
 
     useEffect(() => {
-        const input = {username: localStorage.getItem('username')};
+        const input = { username: localStorage.getItem('username') };
         fetch(LIFTS_URL, {
             method: 'POST',
-            headers: {'Content-Type':'application/json'},
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(input)
         })
-        .then(response => response.json())
-        .then(dataJson => {
-            /* TODO - This is called twice on login but only once if page 
-             *        loaded when already logged in. */
-            setLifts(dataJson);
-            return dataJson;
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+            .then(response => response.json())
+            .then(dataJson => {
+                /* TODO - This is called twice on login but only once if page 
+                 *        loaded when already logged in. */
+                setLifts(dataJson);
+                return dataJson;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
     }, [newLift, removedLift]);
 
-    if (!token) return <Login setToken={setToken}/>;
+    if (!token) return <Login setToken={setToken} />;
     else return (
         <div>
             <Header />
-            {localStorage.getItem('username') 
+            {localStorage.getItem('username')
                 ? <div className="welcome">
                     <h2>Welcome back, {localStorage.getItem('username')}.</h2>
-                    <OneRepMaxForm loggedIn="true" lifts={lifts} setNewInstance={setNewInstance}/>
-                  </div> 
+                    <OneRepMaxForm loggedIn="true" lifts={lifts} setNewInstance={setNewInstance} />
+                </div>
                 : <h2 className="welcome"></h2>}
             <div className="dash">
-                {lifts.map((item, index) => (
-                    <Lift key={index} id={item._id} name={item.name} newInstance={newInstance} setRemovedLift={setRemovedLift}/>
+                {lifts.length < 1 ? 
+                <p>Add a lift to start tracking your e1RMs.</p> : lifts.map((item, index) => (
+                    <Lift key={index} id={item._id} name={item.name} newInstance={newInstance} setRemovedLift={setRemovedLift} />
                 ))}
             </div>
-            <AddLift setNewLift={setNewLift}/>
+            <AddLift setNewLift={setNewLift} />
         </div>
     );
 }
