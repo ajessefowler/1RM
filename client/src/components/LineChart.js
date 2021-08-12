@@ -1,5 +1,5 @@
-import React, { useState} from 'react';
-import {Line} from 'react-chartjs-2';
+import React, { useState, useEffect } from 'react';
+import { Line } from 'react-chartjs-2';
 import Modify from './Modify';
 
 const liftColors = new Map();
@@ -29,7 +29,7 @@ function getRandomIndex() {
 }
 
 /* Check if color is already in map */
-function valueIsInMap(val)  {
+function valueIsInMap(val) {
     for (let v of liftColors.values()) {
         if (v == val) {
             return true;
@@ -49,12 +49,12 @@ function setLiftColor(data) {
 
         if (!colorIndices.has(data[0].lift)) {
             colorIndex = getRandomIndex();
-    
+
             // If we have unused colors, continue picking new index until we get unused color
             while (liftColors.size < dotColors.length && valueIsInMap(colorIndex)) {
                 colorIndex = getRandomIndex();
             }
-    
+
             liftColors.set(data[0].lift, colorIndex);
             localStorage.colorIndices = JSON.stringify(Array.from(liftColors));
         } else {
@@ -71,9 +71,14 @@ function setLiftColor(data) {
 }
 
 const LineChart = (props) => {
+    // Sort the data by date so it appears in chronological order
+    props.data.sort(function (a, b) {
+        return new Date(a.date) - new Date(b.date);
+    })
+
     const dates = props.data.map(instance => {
         const date = instance.date;
-        return date.substring(5,10) + '-' + date.substring(0,4);
+        return date.substring(5, 10) + '-' + date.substring(0, 4);
     });
 
     // State
@@ -82,11 +87,13 @@ const LineChart = (props) => {
     const [e1rm, setE1rm] = useState(0);
     const [rep, setRep] = useState('');
     const [weight, setWeight] = useState('');
+    const [instanceId, setInstanceId] = useState('');
 
     // Data arrays
     const erms = props.data.map(instance => Math.round(instance.erm));
     const weights = props.data.map(instance => instance.weight);
     const reps = props.data.map(instance => instance.reps);
+    const ids = props.data.map(instance => instance._id);
 
     // Graph colors
     const colorIndex = setLiftColor(props.data)
@@ -97,10 +104,12 @@ const LineChart = (props) => {
         if (elements[0] && event) {
             const index = elements[0].index;
 
+            //setDate(props.data[index].date);
             setDate(event.chart.tooltip.title[0]);
             setE1rm(erms[index]);
             setRep(reps[index]);
             setWeight(weights[index]);
+            setInstanceId(ids[index]);
             setModifyIsOpen(true);
         }
     }
@@ -118,7 +127,7 @@ const LineChart = (props) => {
 
     // TODO - make cursor pointer when hovering over data points
     const options = {
-        responsive: true, 
+        responsive: true,
         maintainAspectRatio: true,
         onClick: handleClick,
         animation: {
@@ -130,10 +139,10 @@ const LineChart = (props) => {
             },
             tooltip: {
                 callbacks: {
-                    label: function(i, d) {
-                       return 'e1RM: ' + i.dataset.data[i.dataIndex] + ' lbs';
+                    label: function (i, d) {
+                        return 'e1RM: ' + i.dataset.data[i.dataIndex] + ' lbs';
                     },
-                    afterBody: function(i, d) {
+                    afterBody: function (i, d) {
                         return reps[i[0].dataIndex] + ' reps @ ' + weights[i[0].dataIndex] + ' lbs';
                     }
                 },
@@ -143,7 +152,7 @@ const LineChart = (props) => {
         scales: {
             y: {
                 ticks: {
-                    callback: function(value, index, values) {
+                    callback: function (value, index, values) {
                         return value + ' lbs';
                     }
                 }
@@ -153,10 +162,12 @@ const LineChart = (props) => {
 
     return (
         <div className="chart">
-            <Line data={data} options = {options}/>
-            {(modifyIsOpen) ? <Modify setModifyIsOpen={setModifyIsOpen} date={date} e1rm={e1rm} reps={rep} weight={weight} /> : ''}
+            <Line data={data} options={options} />
+            {(modifyIsOpen) ? <Modify setModifyIsOpen={setModifyIsOpen} date={date} e1rm={e1rm}
+                reps={rep} weight={weight} id={instanceId} setDeletedInstance={props.setDeletedInstance}
+                setModifyIsOpen={setModifyIsOpen} /> : ''}
         </div>
-      );
+    );
 };
-  
+
 export default LineChart;

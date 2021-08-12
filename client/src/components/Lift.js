@@ -3,6 +3,7 @@ import LineChart from '../components/LineChart';
 
 function Lift(props) {
     const [instances, setInstances] = useState([]);
+    const [deletedInstance, setDeletedInstance] = useState([]);
     const INSTANCES_URL = 'http://localhost:3001/api/lifts/instances';
 
     const handleDelete = (event) => {
@@ -43,7 +44,7 @@ function Lift(props) {
         .catch(error => {
             console.error('Error:', error);
         });
-    }, [props.newInstance]);
+    }, [props.newInstance, deletedInstance]);
 
     return instances.length <= 0 ? (
         <div className="lift">
@@ -59,7 +60,7 @@ function Lift(props) {
             <div className="liftHeader">
                 <h2>{props.name}</h2>
             </div>
-            <LineChart data={instances} name={props.name}/>
+            <LineChart data={instances} name={props.name} setDeletedInstance={setDeletedInstance}/>
         </div>
     );
 }

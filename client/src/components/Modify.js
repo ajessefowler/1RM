@@ -1,45 +1,35 @@
 import React, { useState } from "react";
+import DatePicker from "react-datepicker";
 
-const CURRENT_YEAR = 2021;
+import "react-datepicker/dist/react-datepicker.css";
 
 const Modify = (props) => {
+    // Need to add one day when we parse the date due to unknown higher powers
+    const dateParsed = new Date(formatDateString(props.date));
+    const dateAdded = dateParsed.setDate(dateParsed.getDate() + 1);
+
     const [isModifying, setIsModifying] = useState(false);
     const [message, setMessage] = useState('');
-    const [date, setDate] = useState(props.date);
+    const [date, setDate] = useState(dateAdded);
     const [e1rm, setE1rm] = useState(props.e1rm);
-    const [rep, setRep] = useState(props.reps);
+    const [reps, setReps] = useState(props.reps);
     const [weight, setWeight] = useState(props.weight);
 
-    function isValidDate(date) {
-        const splitDate = date.split(/[\.\-\/]/);
-        const month = parseInt(splitDate[0], 10);
-        const day = parseInt(splitDate[1], 10);
-        const year = parseInt(splitDate[2], 10);
-
-        if (!isNaN(month) && !isNaN(day) && !isNaN(year) && month <= 12 && day <= 31 && year <= CURRENT_YEAR &&
-            month > 0 && day > 0 && year > 1900) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    const handleDateChange = (event) => {
-        if(isValidDate(event.target.value)) setMessage('');
-        else setMessage('Enter a valid date with format MM-DD-YYYY.');
-        setDate(event.target.value);
-    }
-
-    const handleE1rmChange = (event) => {
-        setE1rm(event.target.value);
+    // Date is sent in MM-DD-YYYY and we need YYYY-MM-DD
+    function formatDateString(dateString) {
+        const splitDate = dateString.split(/[\.\-\/]/);
+        const month = splitDate[0];
+        const day = splitDate[1];
+        const year = splitDate[2];
+        return Date.parse(year + '-' + month + '-' + day);
     }
 
     const handleWeightChange = (event) => {
         setWeight(event.target.value);
     }
 
-    const handleRepChange = (event) => {
-        setRep(event.target.value);
+    const handleRepsChange = (event) => {
+        setReps(event.target.value);
     }
 
     // Close the modify panel when close button is clicked
@@ -49,42 +39,65 @@ const Modify = (props) => {
 
     const toggleIsModifying = (event) => {
         setIsModifying(!isModifying);
+
+        // Restore back to original values
+        setDate(dateAdded);
+        setReps(props.reps);
+        setWeight(props.weight);
     }
 
     const updateInstance = (event) => {
+        const input = { id: props.id };
 
+        console.log('lift instance ' + input.id + ' modified');
     }
 
     const deleteInstance = (event) => {
+        const url = 'http://localhost:3001/api/lifts/instances/delete';
+        const input = { id: props.id };
 
+        event.preventDefault();
+
+        fetch (url, {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify(input)
+        })
+        .then(response => response.json())
+        .then(dataJson => {
+            console.log('lift instance ' + input.id + ' deleted');
+            props.setModifyIsOpen(false);
+            props.setDeletedInstance(props.id);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     }
 
     return (
         <div className="panel">
             <div className="formItem">
                 <p>Date</p>
-                {isModifying ? <input type="text" value={date} onChange={handleDateChange} name="date" /> : 
-                               <input type="text" value={date} onChange={handleDateChange} name="date" disabled/>}
-                <p>{message}</p>
+                {isModifying ? <DatePicker selected={date} onChange={(newDate) => setDate(newDate)} /> :
+                    <DatePicker selected={date} disabled onChange={(newDate) => setDate(newDate)} />}
             </div>
             <div className="formItem">
-                <p>e1RM</p>
-                {isModifying ? <input type="text" value={e1rm} onChange={handleE1rmChange} name="e1rm" /> : 
-                               <input type="text" value={e1rm} onChange={handleE1rmChange} name="e1rm" disabled/>}
+                <p>e1RM: {e1rm}</p>
             </div>
             <div className="formItem">
                 <p>Weight</p>
-                {isModifying ? <input type="text" value={weight} onChange={handleWeightChange} name="weight" /> : 
-                               <input type="text" value={weight} onChange={handleWeightChange} name="weight" disabled/>}
+                {isModifying ? <input type="text" value={weight} onChange={handleWeightChange} name="weight" /> :
+                    <input type="text" value={weight} onChange={handleWeightChange} name="weight" disabled />}
             </div>
             <div className="formItem">
                 <p>Reps</p>
-                {isModifying ? <input type="text" value={rep} onChange={handleRepChange} name="rep" /> : 
-                               <input type="text" value={rep} onChange={handleRepChange} name="rep" disabled/>}
+                {isModifying ? <input type="text" value={reps} onChange={handleRepsChange} name="reps" /> :
+                    <input type="text" value={reps} onChange={handleRepsChange} name="reps" disabled />}
             </div>
             <p className="modifyClose" onClick={closeModify}>X</p>
-            <button onClick={toggleIsModifying}>Modify</button>
-            {isModifying ? <button onClick={updateInstance}>Update</button> : <button onClick={updateInstance} disabled>Update</button>}
+            {isModifying ? <button onClick={toggleIsModifying}>Cancel</button> : <button onClick={toggleIsModifying}>Modify</button>}
+            {isModifying ? <button onClick={updateInstance}>Save</button> : <button onClick={updateInstance} disabled>Save</button>}
+            <button onClick={deleteInstance}>Delete</button>
         </div>
     );
 }

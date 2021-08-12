@@ -45,12 +45,12 @@ const AddButton = (props) => {
               </div>
             : <div className="addButton expanded">
                 <h2>Add Lift</h2>
-                <form className="rmform noBorder" onSubmit={handleAddLift}>
+                <form className="rmform addForm noBorder" onSubmit={handleAddLift}>
                     <div className="formItem light">
                         <p>Lift Name</p>
                         <input type="text" value={liftName} onChange={handleNameChange} name="liftName" />
                     </div>
-                    <input className="submitBtn" type="submit" value="Add" />
+                    <input className="submitBtn addLiftBtn" type="submit" value="Add" />
                 </form>
                 <div className="closeAddLift">
                     <p onClick={handleButtonClick}>x</p>

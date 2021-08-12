@@ -12,18 +12,18 @@ router.post('/1rm', (req, res) => {
     // res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     // res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
     // Request needs weight and reps
-    res.status(200).json({ erm: calculateE1RM(req.body.weight, req.body.reps)});
+    res.status(200).json({ erm: calculateE1RM(req.body.weight, req.body.reps) });
 });
 
 /* Get lifts for user. */
 router.post('/lifts', (req, res) => {
     // Request needs username
     // We need to find the user and ensure the lift is for the right user
-    User.findOne({username: req.body.username})
+    User.findOne({ username: req.body.username })
         .then(user => {
             if (user) {
                 // Get all lifts for user
-                Lift.find({user: user})
+                Lift.find({ user: user })
                     .then(lifts => {
                         // Return lifts even if there are none
                         res.status(200).json(lifts);
@@ -33,7 +33,7 @@ router.post('/lifts', (req, res) => {
                     })
             } else {
                 // Need User to get lifts, return error
-                res.status(404).json({error: 'no user found'});
+                res.status(404).json({ error: 'no user found' });
             }
         })
         .catch(error => {
@@ -44,26 +44,26 @@ router.post('/lifts', (req, res) => {
 /* Get all instances of a lift. */
 router.post('/lifts/instances', (req, res) => {
     // Request needs name of lift and username
-    User.findOne({username: req.body.username})
+    User.findOne({ username: req.body.username })
         .then(user => {
             if (user) {
-               Lift.findOne({name: req.body.name, user})
-                .then(lift => {
-                    LiftInstance.find({lift: lift})
-                        .then(instances => {
-                            // Return instances even if there are none
-                            res.status(200).json(instances);
-                        })
-                        .catch(error => {
-                            res.status(500).json(error);
-                        });
-                })
-                .catch(error => {
-                    res.status(500).json(error);
-                });
+                Lift.findOne({ name: req.body.name, user })
+                    .then(lift => {
+                        LiftInstance.find({ lift: lift })
+                            .then(instances => {
+                                // Return instances even if there are none
+                                res.status(200).json(instances);
+                            })
+                            .catch(error => {
+                                res.status(500).json(error);
+                            });
+                    })
+                    .catch(error => {
+                        res.status(500).json(error);
+                    });
             } else {
                 // Need User to get lifts, return error
-                res.status(404).json({error: 'no user found'});
+                res.status(404).json({ error: 'no user found' });
             }
         })
         .catch(error => {
@@ -77,16 +77,16 @@ router.post('/lifts/instances/add', (req, res) => {
     const name = req.body.name;
 
     // We need to find the user and ensure the lift is for the right user
-    User.findOne({username: req.body.username})
+    User.findOne({ username: req.body.username })
         .then(user => {
             if (user) {
-                Lift.findOne({name: name, user: user})
+                Lift.findOne({ name: name, user: user })
                     .then(lift => {
                         if (lift) {
                             const erm = calculateE1RM(req.body.weight, req.body.reps);
                             const date = req.body.date ? req.body.date : Date.now();
-                            const newLiftInstance = LiftInstance({lift: lift, erm: erm, weight: req.body.weight, reps: req.body.reps, date: date});
-                        
+                            const newLiftInstance = LiftInstance({ lift: lift, erm: erm, weight: req.body.weight, reps: req.body.reps, date: date });
+
                             // Save lift instance to database
                             newLiftInstance.save()
                                 .then(liftInstance => {
@@ -98,7 +98,7 @@ router.post('/lifts/instances/add', (req, res) => {
                                 });
                         } else {
                             // Need Lift to save instance, return error
-                            res.status(404).json({error: 'no lift found'});
+                            res.status(404).json({ error: 'no lift found' });
                         }
                     })
                     .catch(error => {
@@ -106,7 +106,7 @@ router.post('/lifts/instances/add', (req, res) => {
                     });
             } else {
                 // Need User to save lift, return error
-                res.status(404).json({error: 'no user found'});
+                res.status(404).json({ error: 'no user found' });
             }
         })
         .catch(error => {
@@ -120,10 +120,10 @@ router.post('/lifts/add', (req, res) => {
     const name = req.body.name;
     const username = req.body.username;
 
-    User.findOne({username: username})
+    User.findOne({ username: username })
         .then(user => {
             if (user) {
-                const newLift = Lift({name: name, user: user});
+                const newLift = Lift({ name: name, user: user });
 
                 // Save lift to database
                 newLift.save()
@@ -135,7 +135,7 @@ router.post('/lifts/add', (req, res) => {
                     });
             } else {
                 // Need User to save lift, return error
-                res.status(404).json({error: 'no user found'});
+                res.status(404).json({ error: 'no user found' });
             }
         })
         .catch(error => {
@@ -149,21 +149,21 @@ router.post('/lifts/delete', (req, res) => {
     const name = req.body.name;
     const username = req.body.username;
 
-    User.findOne({username: username})
+    User.findOne({ username: username })
         .then(user => {
             if (user) {
                 /* Delete all instances before deleting lift itself */
                 const deletedCount = deleteAllInstances(name, user);
 
-                Lift.findOneAndDelete({name: name, user: user})
-                .then(response => {
-                    res.status(200).json(response);
-                })
-                .catch(error => {
-                    res.status(500).json(error);
-                });
+                Lift.findOneAndDelete({ name: name, user: user })
+                    .then(response => {
+                        res.status(200).json(response);
+                    })
+                    .catch(error => {
+                        res.status(500).json(error);
+                    });
             } else {
-                res.status(404).json({error: 'no user found'});
+                res.status(404).json({ error: 'no user found' });
             }
         })
         .catch(error => {
@@ -172,27 +172,48 @@ router.post('/lifts/delete', (req, res) => {
 });
 
 router.post('/lifts/instances/delete', (req, res) => {
-    // Request needs lift name, username, date, weight, and reps to uniquely id
-    const liftName = req.body.name;
-    const username = req.body.username;
-    const date = req.body.date;
-    const weight = req.body.weight;
-    const reps = req.body.reps;
+    const instanceId = req.body.id;
 
-    // TODO - complete this function to delete individual instances
-});
-
-async function deleteAllInstances(liftName, user) {
-    Lift.findOne({name: liftName, user: user})
-    .then(lift => {
-        LiftInstance.deleteMany({lift: lift})
-        .then(deleted => {
-            return deleted.deletedCount;
-        });
+    LiftInstance.findByIdAndDelete(instanceId)
+    .then(response => {
+        if (response) {
+            console.log('deleted instance ' + instanceId);
+            res.status(200).json(response);
+        } else {
+            res.status(404).json({ error: 'no instance found' });
+        }
     })
     .catch(error => {
-        console.log('error');
+        res.status(500).json(error);
     })
+});
+
+router.post('/lifts/instances/modify', (req, res) => {
+    const instanceId = req.body.id;
+    const newDate = req.body.date;
+    const newWeight = req.body.weight;
+    const newReps = req.body.reps;
+
+    LiftInstance.findByIdAndUpdate(instanceId)
+    .then()
+
+    // TODO - finish this method
+});
+
+// Delete all instances of a lift so the lift can be deleted
+async function deleteAllInstances(liftName, user) {
+    Lift.findOne({ name: liftName, user: user })
+        .then(lift => {
+            if (lift) {
+                LiftInstance.deleteMany({ lift: lift })
+                    .then(deleted => {
+                        return deleted.deletedCount;
+                    });
+            }
+        })
+        .catch(error => {
+            console.log('error');
+        })
 }
 
 function calculateE1RM(weight, reps) {

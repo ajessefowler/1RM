@@ -14,6 +14,7 @@ const app = express();
 
 // Set up Mongoose for DB
 const mongoose = require('mongoose');
+mongoose.set('useFindAndModify', false);
 const mongoDB = 'mongodb+srv://jesse:dbtest7241@cluster0.fhnwr.mongodb.net/1rm?retryWrites=true&w=majority';
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
 const db = mongoose.connection;
