@@ -165,7 +165,7 @@ const LineChart = (props) => {
             <Line data={data} options={options} />
             {(modifyIsOpen) ? <Modify setModifyIsOpen={setModifyIsOpen} date={date} e1rm={e1rm}
                 reps={rep} weight={weight} id={instanceId} setDeletedInstance={props.setDeletedInstance}
-                setModifyIsOpen={setModifyIsOpen} /> : ''}
+                setModifyIsOpen={setModifyIsOpen} setModifiedInstance={props.setModifiedInstance} /> : ''}
         </div>
     );
 };

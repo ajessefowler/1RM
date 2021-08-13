@@ -8,5 +8,5 @@ export default function calculate1RM(weight, reps) {
     const mcglothin = (100 * weight) / (101.3 - (2.67123 * reps));
     
     // Average the three estimates
-    return ((epley + brzycki + mcglothin) / 3);
+    return Math.round((epley + brzycki + mcglothin) / 3);
 }

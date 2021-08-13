@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
+import calculate1RM from "../services/repMaxCalc";
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -9,7 +10,6 @@ const Modify = (props) => {
     const dateAdded = dateParsed.setDate(dateParsed.getDate() + 1);
 
     const [isModifying, setIsModifying] = useState(false);
-    const [message, setMessage] = useState('');
     const [date, setDate] = useState(dateAdded);
     const [e1rm, setE1rm] = useState(props.e1rm);
     const [reps, setReps] = useState(props.reps);
@@ -26,10 +26,12 @@ const Modify = (props) => {
 
     const handleWeightChange = (event) => {
         setWeight(event.target.value);
+        setE1rm(calculate1RM(event.target.value, reps));
     }
 
     const handleRepsChange = (event) => {
         setReps(event.target.value);
+        setE1rm(calculate1RM(weight, event.target.value));
     }
 
     // Close the modify panel when close button is clicked
@@ -42,14 +44,31 @@ const Modify = (props) => {
 
         // Restore back to original values
         setDate(dateAdded);
+        setE1rm(props.e1rm);
         setReps(props.reps);
         setWeight(props.weight);
     }
 
     const updateInstance = (event) => {
-        const input = { id: props.id };
+        const url = 'http://localhost:3001/api/lifts/instances/modify';
+        const input = { id: props.id, oldDate: dateAdded, oldWeight: props.weight, oldReps: props.reps, oldErm: props.e1rm,
+            date: (date - 1), weight: weight, reps: reps, erm: e1rm };
 
-        console.log('lift instance ' + input.id + ' modified');
+        event.preventDefault();
+
+        fetch (url, {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify(input)
+        })
+        .then(response => response.json())
+        .then(dataJson => {
+            props.setModifyIsOpen(false);
+            props.setModifiedInstance(props.id);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     }
 
     const deleteInstance = (event) => {
@@ -65,7 +84,6 @@ const Modify = (props) => {
         })
         .then(response => response.json())
         .then(dataJson => {
-            console.log('lift instance ' + input.id + ' deleted');
             props.setModifyIsOpen(false);
             props.setDeletedInstance(props.id);
         })

@@ -31,7 +31,7 @@ class OneRepMaxForm extends React.Component {
     }
 
     handleDateChange(event) {
-        this.setState({ date: event.target.value });
+        this.setState({ date: new Date(event.target.value) });
     }
 
     handleERMChange(event) {
@@ -45,20 +45,6 @@ class OneRepMaxForm extends React.Component {
         this.setState({ erm: Math.round(erm), message: 'Your e1RM is ' + Math.round(erm) + ' lbs.' });
 
         return erm;
-
-        /* fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(input)
-        })
-            .then(response => response.json())
-            .then(dataJson => {
-                this.setState({ erm: Math.round(dataJson.erm), message: 'Your e1RM is ' + Math.round(dataJson.erm) + ' lbs.' });
-                return dataJson.erm;
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            }); */
     }
 
     handleLiftSelect(event) {

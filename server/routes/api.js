@@ -194,11 +194,13 @@ router.post('/lifts/instances/modify', (req, res) => {
     const oldDate = req.body.oldDate;
     const oldWeight = req.body.oldWeight;
     const oldReps = req.body.oldReps;
+    const oldErm = req.body.oldErm;
     const newDate = req.body.date ? req.body.date : oldDate;
     const newWeight = req.body.weight ? req.body.weight : oldWeight;
     const newReps = req.body.reps ? req.body.reps : oldReps;
+    const newErm = req.body.erm ? req.body.erm : oldErm;
 
-    LiftInstance.findByIdAndUpdate(instanceId, {date: newDate, weight: newWeight, reps: newReps})
+    LiftInstance.findByIdAndUpdate(instanceId, { date: newDate, weight: newWeight, reps: newReps, erm: newErm })
         .then(response => {
             res.status(200).json(response);
         })
