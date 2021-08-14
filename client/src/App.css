@@ -363,6 +363,16 @@ input[type=submit], button {
   left: 10px;
 }
 
+.deleteConfirm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.deleteConfirm > p {
+  margin-bottom: 0;
+}
+
 .liftHeader > h2 {
   font-size: 18pt;
 }

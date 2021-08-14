@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import LineChart from '../components/LineChart';
+import Delete from '../components/Delete';
 
 function Lift(props) {
     const id = props.id;
@@ -14,6 +15,8 @@ function Lift(props) {
         const input = { name: props.name, username: localStorage.getItem('username') };
 
         event.preventDefault();
+
+        setConfirmIsOpen(true);
 
         /* fetch(url, {
             method: 'POST',
@@ -44,11 +47,7 @@ function Lift(props) {
                 dataJson.sort(function (a, b) {
                     return new Date(a.date) - new Date(b.date);
                 });
-
-                console.log(dataJson);
-
-                console.log(dataJson[dataJson.length - 1].erm);
-
+                
                 setInstances(dataJson);
                 return dataJson;
             })
@@ -60,6 +59,7 @@ function Lift(props) {
     return (
         <div className="lift">
             <p onClick={handleDelete} className="deleteLift">Delete</p>
+            {confirmisOpen ? <Delete setRemovedLift={props.setRemovedLift} setConfirmIsOpen={setConfirmIsOpen} name={props.name} /> : null}
             <div className="liftHeader">
                 <h2>{props.name}</h2>
                 {instances.length <= 0 ? <p></p> : <p>Current 1RM is {Math.round(instances[instances.length - 1].erm)} lbs.</p>}
