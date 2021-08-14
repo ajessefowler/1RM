@@ -6,6 +6,7 @@ function Lift(props) {
     const [instances, setInstances] = useState([]);
     const [deletedInstance, setDeletedInstance] = useState({});
     const [modifiedInstance, setModifiedInstance] = useState({});
+    const [confirmisOpen, setConfirmIsOpen] = useState(false);
     const INSTANCES_URL = 'http://localhost:3001/api/lifts/instances';
 
     const handleDelete = (event) => {
@@ -14,7 +15,7 @@ function Lift(props) {
 
         event.preventDefault();
 
-        fetch(url, {
+        /* fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(input)
@@ -26,7 +27,7 @@ function Lift(props) {
             })
             .catch(error => {
                 console.error('Error:', error);
-            });
+            }); */
     }
 
     useEffect(() => {
@@ -39,6 +40,15 @@ function Lift(props) {
         })
             .then(response => response.json())
             .then(dataJson => {
+                // Sort the data by date so it appears in chronological order
+                dataJson.sort(function (a, b) {
+                    return new Date(a.date) - new Date(b.date);
+                });
+
+                console.log(dataJson);
+
+                console.log(dataJson[dataJson.length - 1].erm);
+
                 setInstances(dataJson);
                 return dataJson;
             })
@@ -47,22 +57,19 @@ function Lift(props) {
             });
     }, [props.newInstance, deletedInstance, modifiedInstance]);
 
-    return instances.length <= 0 ? (
+    return (
         <div className="lift">
             <p onClick={handleDelete} className="deleteLift">Delete</p>
             <div className="liftHeader">
                 <h2>{props.name}</h2>
+                {instances.length <= 0 ? <p></p> : <p>Current 1RM is {Math.round(instances[instances.length - 1].erm)} lbs.</p>}
             </div>
-            <p>No instances for this lift.</p>
-        </div>
-    ) : (
-        <div className="lift">
-            <p onClick={handleDelete} className="deleteLift">Delete</p>
-            <div className="liftHeader">
-                <h2>{props.name}</h2>
-            </div>
-            <LineChart data={instances} name={props.name} setDeletedInstance={setDeletedInstance}
-                setModifiedInstance={setModifiedInstance} />
+            {instances.length <= 0 ? (
+                <p>No instances for this lift.</p>
+            ) : (
+                <LineChart data={instances} name={props.name} setDeletedInstance={setDeletedInstance}
+                    setModifiedInstance={setModifiedInstance} />
+            )}
         </div>
     );
 }

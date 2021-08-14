@@ -71,11 +71,6 @@ function setLiftColor(data) {
 }
 
 const LineChart = (props) => {
-    // Sort the data by date so it appears in chronological order
-    props.data.sort(function (a, b) {
-        return new Date(a.date) - new Date(b.date);
-    })
-
     const dates = props.data.map(instance => {
         const date = instance.date;
         return date.substring(5, 10) + '-' + date.substring(0, 4);

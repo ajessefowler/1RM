@@ -31,7 +31,9 @@ class OneRepMaxForm extends React.Component {
     }
 
     handleDateChange(event) {
-        this.setState({ date: new Date(event.target.value) });
+        const date = event.target.value;
+        date = date - 1;
+        this.setState({ date: date });
     }
 
     handleERMChange(event) {
