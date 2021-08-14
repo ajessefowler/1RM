@@ -54,8 +54,7 @@ input[type=submit], button {
   top: 0;
   left: 0;
   width: 100%;
-  background: rgb(148,54,54);
-  background: linear-gradient(90deg, rgba(148,54,54,1) 0%, rgba(110,110,110,1) 100%);
+  background-color: rgb(195, 195, 195);
   z-index: 2;
   display: flex;
   justify-content: space-between;
@@ -65,19 +64,19 @@ input[type=submit], button {
 }
 
 .header > h2 {
-  color: rgba(255, 255, 255, 0.9);
+  color: rgb(22, 22, 22);
   margin-bottom: 0;
+  font-weight: bold;
 }
 
 .headerBtn {
-  background-color: rgba(59, 59, 59, 0.2);
+  background-color: rgba(150, 150, 150, 0.1);
   border: none;
-  color: white;
-  font-weight: bolder;
+  color: black;
 }
 
 .headerBtn:hover {
-  background-color: rgba(59, 59, 59, 0.4);
+  background-color: rgba(150, 150, 150, 0.2);
 }
 
 .welcomeMsg {
@@ -235,16 +234,26 @@ input[type=submit], button {
 
 .welcome {
   align-self: flex-start;
-  padding: 110px 20px 40px 70px;
+  padding: 60px 20px 40px 70px;
   width: 100%;
   display: flex;
   justify-content: flex-end;
   align-items: center;
 }
 
-.welcome > h2 {
-  margin-top: 10px;
+.welcomeButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.welcomeButtons > button, .welcomeButtons > .logOut > .headerBtn {
+  margin: 10px 13px;
+}
+
+.welcomeLeft > h2 {
   margin-right: 20px;
+  font-weight: bold;
 }
 
 .inlineLink {
@@ -376,6 +385,7 @@ input[type=submit], button {
 
 .liftHeader > h2 {
   font-size: 18pt;
+  font-weight: bold;
 }
 
 .chart {

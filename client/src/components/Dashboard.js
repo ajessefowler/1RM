@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Login from '../components/LoginV2';
-import Header from '../components/Header';
+import Logout from '../components/Logout';
 import OneRepMaxForm from '../components/OneRepMaxForm';
 import Lift from '../components/Lift';
 import AddLift from '../components/AddButton';
@@ -36,10 +36,15 @@ const Dashboard = () => {
     if (!token) return <Login setToken={setToken} />;
     else return (
         <div>
-            <Header />
             {localStorage.getItem('username')
                 ? <div className="welcome">
-                    <h2>Welcome back, {localStorage.getItem('username')}.</h2>
+                    <div className="welcomeLeft">
+                        <h2>Welcome back, {localStorage.getItem('username')}.</h2>
+                        <div className="welcomeButtons">
+                            <Logout />
+                            <button className="headerBtn">My Account</button>
+                        </div>
+                    </div>
                     <OneRepMaxForm loggedIn="true" lifts={lifts} setNewInstance={setNewInstance} />
                 </div>
                 : <h2 className="welcome"></h2>}
