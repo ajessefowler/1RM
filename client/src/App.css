@@ -1,3 +1,9 @@
+a {
+  /* Need to override default */
+  color: rgb(29, 29, 29) !important;
+  text-decoration: none !important;
+}
+
 p, label, h2 {
   color: rgb(29, 29, 29);
   cursor: default;
@@ -76,6 +82,25 @@ input[type=submit], button {
 }
 
 .headerBtn:hover {
+  background-color: rgba(150, 150, 150, 0.2);
+}
+
+.homeButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 0;
+  position: absolute;
+  bottom: 10vh;
+}
+
+.homeButtons > a > button {
+  margin: 0 15px;
+  background-color: rgba(150, 150, 150, 0.1);
+  border: none;
+}
+
+.homeButtons > a > button:hover {
   background-color: rgba(150, 150, 150, 0.2);
 }
 
@@ -367,10 +392,19 @@ input[type=submit], button {
   }
 }
 
-.deleteLift {
+.deleteLift, .editLift {
   position: absolute;
-  top: 5px;
-  left: 10px;
+  top: 15px;
+  padding: 3px;
+  color:rgb(68, 68, 68)
+}
+
+.deleteLift {
+  left: 20px;
+}
+
+.editLift {
+  right: 18px;
 }
 
 .deleteConfirm {
@@ -386,6 +420,7 @@ input[type=submit], button {
 .liftHeader > h2 {
   font-size: 18pt;
   font-weight: bold;
+  margin-bottom: 3px;
 }
 
 .chart {

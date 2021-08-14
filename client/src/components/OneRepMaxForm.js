@@ -84,7 +84,7 @@ class OneRepMaxForm extends React.Component {
             <div className="repmax">
                 {localStorage.getItem('username')
                     ? <h2></h2>
-                    : <h2 className="welcomeMsg">Welcome to e1RM.</h2>}
+                    : <h2 className="welcomeMsg">e1RM Calculator</h2>}
                 <div className="formContainer">
                     <form className="rmform" onSubmit={this.handleSubmit}>
                         <div className="formItem">

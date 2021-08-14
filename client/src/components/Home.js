@@ -10,9 +10,10 @@ const Home = () => {
     return token ? <Dashboard /> : (
         <div>
             <OneRepMaxForm />
-            <p className="createAccount">Want to track your progress over time?<Link className="inlineLink" to='/register'>Create an account</Link> to save your data.</p>
-            <p>Already have an account? 
-            <Link className="inlineLink" to='/login'>Login.</Link></p>
+            <div class="homeButtons">
+                <Link className="inlineLink" to='/register'><button>Create Account</button></Link>
+                <Link className="inlineLink" to='/login'><button>Login</button></Link>
+            </div>
         </div>
     )
 }

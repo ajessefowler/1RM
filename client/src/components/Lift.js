@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import LineChart from '../components/LineChart';
 import Delete from '../components/Delete';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash, faPen } from '@fortawesome/free-solid-svg-icons'
 
 function Lift(props) {
     const id = props.id;
@@ -47,7 +49,7 @@ function Lift(props) {
                 dataJson.sort(function (a, b) {
                     return new Date(a.date) - new Date(b.date);
                 });
-                
+
                 setInstances(dataJson);
                 return dataJson;
             })
@@ -58,11 +60,12 @@ function Lift(props) {
 
     return (
         <div className="lift">
-            <p onClick={handleDelete} className="deleteLift">Delete</p>
+            <FontAwesomeIcon icon={faTrash} onClick={handleDelete} className="deleteLift" />
+            <FontAwesomeIcon icon={faPen} className="editLift" />
             {confirmisOpen ? <Delete setRemovedLift={props.setRemovedLift} setConfirmIsOpen={setConfirmIsOpen} name={props.name} /> : null}
             <div className="liftHeader">
                 <h2>{props.name}</h2>
-                {instances.length <= 0 ? <p></p> : <p>Current 1RM is {Math.round(instances[instances.length - 1].erm)} lbs.</p>}
+                {instances.length <= 0 ? <p></p> : <p>Current e1RM - {Math.round(instances[instances.length - 1].erm)} lbs.</p>}
             </div>
             {instances.length <= 0 ? (
                 <p>No instances for this lift.</p>
