@@ -4,8 +4,8 @@ import LineChart from '../components/LineChart';
 function Lift(props) {
     const id = props.id;
     const [instances, setInstances] = useState([]);
-    const [deletedInstance, setDeletedInstance] = useState([]);
-    const [modifiedInstance, setModifiedInstance] = useState([]);
+    const [deletedInstance, setDeletedInstance] = useState({});
+    const [modifiedInstance, setModifiedInstance] = useState({});
     const INSTANCES_URL = 'http://localhost:3001/api/lifts/instances';
 
     const handleDelete = (event) => {

@@ -64,7 +64,7 @@ const Modify = (props) => {
         .then(response => response.json())
         .then(dataJson => {
             props.setModifyIsOpen(false);
-            props.setModifiedInstance(props.id);
+            props.setModifiedInstance(dataJson);
         })
         .catch(error => {
             console.error('Error:', error);
@@ -85,7 +85,7 @@ const Modify = (props) => {
         .then(response => response.json())
         .then(dataJson => {
             props.setModifyIsOpen(false);
-            props.setDeletedInstance(props.id);
+            props.setDeletedInstance(dataJson);
         })
         .catch(error => {
             console.error('Error:', error);
@@ -94,13 +94,11 @@ const Modify = (props) => {
 
     return (
         <div className="panel">
+            <p className="modifyE1rm">Current e1RM: {e1rm}</p>
             <div className="formItem">
                 <p>Date</p>
                 {isModifying ? <DatePicker selected={date} onChange={(newDate) => setDate(newDate)} /> :
                     <DatePicker selected={date} disabled onChange={(newDate) => setDate(newDate)} />}
-            </div>
-            <div className="formItem">
-                <p>e1RM: {e1rm}</p>
             </div>
             <div className="formItem">
                 <p>Weight</p>

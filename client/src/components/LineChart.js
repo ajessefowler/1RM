@@ -121,6 +121,7 @@ const LineChart = (props) => {
                 data: erms,
                 backgroundColor: dotColor,
                 borderColor: lineColor,
+                tension: 0.3
             }
         ]
     }
