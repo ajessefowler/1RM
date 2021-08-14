@@ -54,29 +54,30 @@ input[type=submit], button {
   top: 0;
   left: 0;
   width: 100%;
-  background-color: rgb(200, 200, 200);
+  background: rgb(148,54,54);
+  background: linear-gradient(90deg, rgba(148,54,54,1) 0%, rgba(110,110,110,1) 100%);
   z-index: 2;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 30px;
-  /*border-bottom: 1px solid rgb(182, 182, 182);*/
-  box-shadow: 0px 1px 10px rgb(200, 200, 200);
+  box-shadow: 0px 1px 10px rgb(168, 168, 168);
 }
 
 .header > h2 {
-  color: black;
+  color: rgba(255, 255, 255, 0.9);
   margin-bottom: 0;
 }
 
 .headerBtn {
-  background-color: white;
-  border: 1px solid rgb(182, 182, 182);
-  color: black;
+  background-color: rgba(59, 59, 59, 0.2);
+  border: none;
+  color: white;
+  font-weight: bolder;
 }
 
 .headerBtn:hover {
-  background-color: rgb(182, 182, 182);
+  background-color: rgba(59, 59, 59, 0.4);
 }
 
 .welcomeMsg {
