@@ -62,7 +62,7 @@ function Lift(props) {
         <div className="lift">
             <FontAwesomeIcon icon={faPen} onClick={handleDelete} className="editLift" />
             {modifyIsOpen ? <EditLift setRemovedLift={props.setRemovedLift} setModifyIsOpen={setModifyIsOpen} name={props.name}
-                id={id} setModifiedLift={props.setModifiedLift} /> : null}
+                id={id} setModifiedLift={props.setModifiedLift} /> : null }
             <div className="liftHeader">
                 <h2>{props.name}</h2>
                 {instances.length <= 0 ? <p></p> : <p>Current e1RM - {Math.round(instances[instances.length - 1].erm)} lbs.</p>}

@@ -29,7 +29,7 @@ const Delete = (props) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(input)
         })
-        .then(response => response.json())
+            .then(response => response.json())
             .then(dataJson => {
                 props.setModifiedLift(dataJson);
             })
@@ -42,7 +42,6 @@ const Delete = (props) => {
         const url = 'http://localhost:3001/api/lifts/delete';
         const input = { name: props.name, username: localStorage.getItem('username') };
 
-        event.preventDefault();
         props.setModifyIsOpen(false);
 
         fetch(url, {
@@ -62,12 +61,13 @@ const Delete = (props) => {
     return (
         <div className="deleteConfirm panel">
             <form className="rmform addForm noBorder" onSubmit={handleModification}>
-                    <div className="formItem">
-                        <p><strong>Lift Name</strong></p>
-                        <input type="text" value={newName} onChange={handleInput} name="newName" />
-                    </div>
-                    <input className="submitBtn" type="submit" value="Change Name" />
-                </form>
+                <div className="formItem">
+                    <p><strong>Lift Name</strong></p>
+                    <input type="text" value={newName} onChange={handleInput} name="newName" />
+                </div>
+                {newName == props.name ? <input disabled className="submitBtn" type="submit" value="Change Name" /> :
+                    <input className="submitBtn" type="submit" value="Change Name" />}
+            </form>
             <div className="modifyButtons">
                 {deleteInitiated ? <button onClick={submitDelete} className="deleteBtn">Delete</button> :
                     <button onClick={confirmDelete} className="deleteBtn">Delete</button>}

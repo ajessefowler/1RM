@@ -94,7 +94,7 @@ const Modify = (props) => {
 
     return (
         <div className="panel">
-            <p className="modifyE1rm">Current e1RM: {e1rm}</p>
+            <p className="modifyE1rm">e1RM: {e1rm} lbs</p>
             <div className="formItem">
                 <p>Date</p>
                 {isModifying ? <DatePicker selected={date} onChange={(newDate) => setDate(newDate)} /> :
