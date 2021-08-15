@@ -55,6 +55,12 @@ input[type=submit], button {
   color: white;
 }
 
+.deleteBtn {
+  border: 1px solid rgb(165, 62, 62);
+  background-color: rgb(199, 67, 67);
+  color: white;
+}
+
 .header {
   position: absolute;
   top: 0;
@@ -237,14 +243,28 @@ input[type=submit], button {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding: 50px 20px;
+  padding: 90px 20px 80px;
   align-items: center;
+}
+
+.modifyButtons {
+  width: 100%;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  bottom: 25px;
+}
+
+.modifyButtons > p {
+  margin: 0;
+  padding: 0 10px;
 }
 
 .modifyE1rm {
   position: absolute;
-  top: 15px;
-  left: 15px;
+  top: 55px;
   font-size: 16pt;
   font-weight: bolder;
 }
@@ -392,19 +412,17 @@ input[type=submit], button {
   }
 }
 
-.deleteLift, .editLift {
-  position: absolute;
-  top: 15px;
-  padding: 3px;
-  color:rgb(68, 68, 68)
-}
-
-.deleteLift {
-  left: 20px;
-}
-
 .editLift {
-  right: 18px;
+  position: absolute;
+  top: 17px;
+  padding: 3px;
+  color:rgb(184, 184, 184);
+  left: 19px;
+}
+
+.editLift:hover {
+  color:rgb(129, 129, 129);
+  cursor: pointer;
 }
 
 .deleteConfirm {

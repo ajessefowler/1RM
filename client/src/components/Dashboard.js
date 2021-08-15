@@ -13,6 +13,7 @@ const Dashboard = () => {
     const [newInstance, setNewInstance] = useState({});
     const [newLift, setNewLift] = useState({});
     const [removedLift, setRemovedLift] = useState({});
+    const [modifiedLift, setModifiedLift] = useState({});
 
     useEffect(() => {
         const input = { username: localStorage.getItem('username') };
@@ -31,7 +32,7 @@ const Dashboard = () => {
             .catch(error => {
                 console.error('Error:', error);
             });
-    }, [newLift, removedLift]);
+    }, [newLift, removedLift, modifiedLift]);
 
     if (!token) return <Login setToken={setToken} />;
     else return (
@@ -49,10 +50,11 @@ const Dashboard = () => {
                 </div>
                 : <h2 className="welcome"></h2>}
             <div className="dash">
-                {lifts.length < 1 ? 
-                <p>Add a lift to start tracking your e1RMs.</p> : lifts.map((item, index) => (
-                    <Lift key={index} id={item._id} name={item.name} newInstance={newInstance} setRemovedLift={setRemovedLift} />
-                ))}
+                {lifts.length < 1 ?
+                    <p>Add a lift to start tracking your e1RMs.</p> : lifts.map((item, index) => (
+                        <Lift key={index} id={item._id} name={item.name} newInstance={newInstance}
+                            setRemovedLift={setRemovedLift} setModifiedLift={setModifiedLift} />
+                    ))}
             </div>
             <AddLift setNewLift={setNewLift} />
         </div>

@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import LineChart from '../components/LineChart';
-import Delete from '../components/Delete';
+import EditLift from './EditLift';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrash, faPen } from '@fortawesome/free-solid-svg-icons'
+import { faPen } from '@fortawesome/free-solid-svg-icons'
 
 function Lift(props) {
     const id = props.id;
     const [instances, setInstances] = useState([]);
     const [deletedInstance, setDeletedInstance] = useState({});
     const [modifiedInstance, setModifiedInstance] = useState({});
-    const [confirmisOpen, setConfirmIsOpen] = useState(false);
+    const [modifyIsOpen, setModifyIsOpen] = useState(false);
     const INSTANCES_URL = 'http://localhost:3001/api/lifts/instances';
 
     const handleDelete = (event) => {
@@ -18,7 +18,7 @@ function Lift(props) {
 
         event.preventDefault();
 
-        setConfirmIsOpen(true);
+        setModifyIsOpen(true);
 
         /* fetch(url, {
             method: 'POST',
@@ -60,9 +60,9 @@ function Lift(props) {
 
     return (
         <div className="lift">
-            <FontAwesomeIcon icon={faTrash} onClick={handleDelete} className="deleteLift" />
-            <FontAwesomeIcon icon={faPen} className="editLift" />
-            {confirmisOpen ? <Delete setRemovedLift={props.setRemovedLift} setConfirmIsOpen={setConfirmIsOpen} name={props.name} /> : null}
+            <FontAwesomeIcon icon={faPen} onClick={handleDelete} className="editLift" />
+            {modifyIsOpen ? <EditLift setRemovedLift={props.setRemovedLift} setModifyIsOpen={setModifyIsOpen} name={props.name}
+                id={id} setModifiedLift={props.setModifiedLift} /> : null}
             <div className="liftHeader">
                 <h2>{props.name}</h2>
                 {instances.length <= 0 ? <p></p> : <p>Current e1RM - {Math.round(instances[instances.length - 1].erm)} lbs.</p>}

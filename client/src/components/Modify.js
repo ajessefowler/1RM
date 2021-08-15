@@ -111,9 +111,11 @@ const Modify = (props) => {
                     <input type="text" value={reps} onChange={handleRepsChange} name="reps" disabled />}
             </div>
             <p className="modifyClose" onClick={closeModify}>X</p>
-            {isModifying ? <button onClick={toggleIsModifying}>Cancel</button> : <button onClick={toggleIsModifying}>Modify</button>}
-            {isModifying ? <button onClick={updateInstance}>Save</button> : <button onClick={updateInstance} disabled>Save</button>}
-            <button onClick={deleteInstance}>Delete</button>
+            <div className="modifyButtons">
+                <button onClick={deleteInstance} className="deleteBtn">Delete</button>
+                {isModifying ? <button onClick={toggleIsModifying}>Cancel</button> : <button onClick={toggleIsModifying}>Modify</button>}
+                {isModifying ? <button onClick={updateInstance}>Save</button> : <button onClick={updateInstance} disabled>Save</button>}
+            </div>
         </div>
     );
 }
