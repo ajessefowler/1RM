@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Login from '../components/LoginV2';
 import Logout from '../components/Logout';
+import Account from '../components/Account';
 import OneRepMaxForm from '../components/OneRepMaxForm';
 import Lift from '../components/Lift';
 import AddLift from '../components/AddButton';
@@ -14,6 +15,11 @@ const Dashboard = () => {
     const [newLift, setNewLift] = useState({});
     const [removedLift, setRemovedLift] = useState({});
     const [modifiedLift, setModifiedLift] = useState('');
+    const [accountIsOpen, setAccountIsOpen] = useState(false);
+
+    const handleOpenAccount = (event) => {
+        setAccountIsOpen(true);
+    };
 
     useEffect(() => {
         const input = { username: localStorage.getItem('username') };
@@ -32,18 +38,19 @@ const Dashboard = () => {
             .catch(error => {
                 console.error('Error:', error);
             });
-    }, [newLift, removedLift, modifiedLift]);
+    }, [newLift, removedLift, modifiedLift, accountIsOpen]);
 
     if (!token) return <Login setToken={setToken} />;
     else return (
         <div>
+            {accountIsOpen ? <Account setAccountIsOpen={setAccountIsOpen} /> : null }
             {localStorage.getItem('username')
                 ? <div className="welcome">
                     <div className="welcomeLeft">
                         <h2>Welcome back, {localStorage.getItem('username')}.</h2>
                         <div className="welcomeButtons">
                             <Logout />
-                            <button className="headerBtn">My Account</button>
+                            <button className="headerBtn" onClick={handleOpenAccount}>My Account</button>
                         </div>
                     </div>
                     <OneRepMaxForm loggedIn="true" lifts={lifts} setNewInstance={setNewInstance} />

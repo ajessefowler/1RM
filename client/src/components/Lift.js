@@ -19,20 +19,6 @@ function Lift(props) {
         event.preventDefault();
 
         setModifyIsOpen(true);
-
-        /* fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(input)
-        })
-            .then(response => response.json())
-            .then(dataJson => {
-                props.setRemovedLift(props.name);
-                console.log(props.name + ' deleted');
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            }); */
     }
 
     useEffect(() => {
@@ -65,10 +51,10 @@ function Lift(props) {
                 id={id} setModifiedLift={props.setModifiedLift} /> : null }
             <div className="liftHeader">
                 <h2>{props.name}</h2>
-                {instances.length <= 0 ? <p></p> : <p>Current e1RM - {Math.round(instances[instances.length - 1].erm)} lbs.</p>}
+                {instances.length <= 0 ? <p></p> : <p>Most recent e1RM - {Math.round(instances[instances.length - 1].erm)} lbs.</p>}
             </div>
             {instances.length <= 0 ? (
-                <p>No instances for this lift.</p>
+                <p className="emptyLift">No instances for this lift.</p>
             ) : (
                 <LineChart data={instances} name={props.name} setDeletedInstance={setDeletedInstance}
                     setModifiedInstance={setModifiedInstance} />
