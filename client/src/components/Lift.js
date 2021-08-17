@@ -54,7 +54,7 @@ function Lift(props) {
                 {instances.length <= 0 ? <p></p> : <p>Most recent e1RM - {Math.round(instances[instances.length - 1].erm)} lbs.</p>}
             </div>
             {instances.length <= 0 ? (
-                <p className="emptyLift">No instances for this lift.</p>
+                <p className="emptyLift">No data for this lift.</p>
             ) : (
                 <LineChart data={instances} name={props.name} setDeletedInstance={setDeletedInstance}
                     setModifiedInstance={setModifiedInstance} />
