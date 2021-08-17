@@ -94,7 +94,10 @@ const Modify = (props) => {
 
     return (
         <div className="panel">
-            <p className="modifyE1rm">e1RM: {e1rm} lbs</p>
+            <div className="editHeader">
+                <h2><strong>Edit Record</strong></h2>
+                <p className="modifyE1rm">e1RM - <strong>{e1rm}</strong> lbs</p>
+            </div>
             <div className="formItem">
                 <p>Date</p>
                 {isModifying ? <DatePicker selected={date} onChange={(newDate) => setDate(newDate)} /> :
@@ -110,11 +113,11 @@ const Modify = (props) => {
                 {isModifying ? <input type="text" value={reps} onChange={handleRepsChange} name="reps" /> :
                     <input type="text" value={reps} onChange={handleRepsChange} name="reps" disabled />}
             </div>
-            <p className="modifyClose" onClick={closeModify}>X</p>
+            {isModifying ? <button onClick={toggleIsModifying}>Revert</button> : <button onClick={toggleIsModifying}>Modify</button>}
+            {isModifying ? <button onClick={updateInstance}>Save</button> : <button onClick={updateInstance} disabled>Save</button>}
             <div className="modifyButtons">
                 <button onClick={deleteInstance} className="deleteBtn">Delete</button>
-                {isModifying ? <button onClick={toggleIsModifying}>Cancel</button> : <button onClick={toggleIsModifying}>Modify</button>}
-                {isModifying ? <button onClick={updateInstance}>Save</button> : <button onClick={updateInstance} disabled>Save</button>}
+                <button onClick={closeModify}>Cancel</button>
             </div>
         </div>
     );

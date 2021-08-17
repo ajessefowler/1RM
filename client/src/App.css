@@ -243,8 +243,12 @@ input[type=submit], button {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding: 90px 20px 80px;
+  padding: 110px 0 110px;
   align-items: center;
+}
+
+.panel > button {
+  margin: 0 20px;
 }
 
 .modifyButtons {
@@ -263,10 +267,7 @@ input[type=submit], button {
 }
 
 .modifyE1rm {
-  position: absolute;
-  top: 55px;
-  font-size: 16pt;
-  font-weight: bolder;
+  font-size: 14pt;
 }
 
 .modifyClose {
@@ -428,6 +429,20 @@ input[type=submit], button {
 .editLift:hover {
   color:rgb(129, 129, 129);
   cursor: pointer;
+}
+
+.editHeader {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.editHeader > h2, .editHeader > p {
+  margin: 0;
 }
 
 .deleteConfirm {

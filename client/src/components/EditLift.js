@@ -60,6 +60,7 @@ const Delete = (props) => {
 
     return (
         <div className="deleteConfirm panel">
+            <h2 className="editHeader"><strong>Edit Lift</strong></h2>
             <form className="rmform addForm noBorder" onSubmit={handleModification}>
                 <div className="formItem">
                     <p><strong>Lift Name</strong></p>
