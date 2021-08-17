@@ -13,7 +13,7 @@ const Dashboard = () => {
     const [newInstance, setNewInstance] = useState({});
     const [newLift, setNewLift] = useState({});
     const [removedLift, setRemovedLift] = useState({});
-    const [modifiedLift, setModifiedLift] = useState({});
+    const [modifiedLift, setModifiedLift] = useState('');
 
     useEffect(() => {
         const input = { username: localStorage.getItem('username') };

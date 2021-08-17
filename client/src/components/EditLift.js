@@ -31,7 +31,8 @@ const Delete = (props) => {
         })
             .then(response => response.json())
             .then(dataJson => {
-                props.setModifiedLift(dataJson);
+                props.setModifyIsOpen(false);
+                props.setModifiedLift(dataJson.name);
             })
             .catch(error => {
                 console.error('Error:', error);
