@@ -10,7 +10,8 @@ const Home = () => {
     return token ? <Dashboard /> : (
         <div>
             <OneRepMaxForm />
-            <div class="homeButtons">
+            <p className="homeText">Create an account or login to save your progress and track your lifts over time.</p>
+            <div className="homeButtons">
                 <Link className="inlineLink" to='/register'><button>Create Account</button></Link>
                 <Link className="inlineLink" to='/login'><button>Login</button></Link>
             </div>

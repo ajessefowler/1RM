@@ -7,6 +7,8 @@ import Lift from '../components/Lift';
 import AddLift from '../components/AddButton';
 import useToken from '../hooks/useToken';
 
+import authHeader from '../services/authHeader';
+
 const Dashboard = () => {
     const { token, setToken } = useToken();
     const LIFTS_URL = 'http://localhost:3001/api/lifts';

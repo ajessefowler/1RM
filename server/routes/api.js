@@ -13,6 +13,8 @@ router.post('/1rm', (req, res) => {
 });
 
 /* Get lifts for user. */
+
+// TODO - change to GET
 router.post('/lifts', (req, res) => {
     // Request needs username
     User.findOne({ username: req.body.username })
@@ -37,6 +39,8 @@ router.post('/lifts', (req, res) => {
         });
 });
 
+
+// TODO - change to GET
 router.post('/lifts/instances', (req, res) => {
     const liftId = req.body.id;
 
@@ -130,6 +134,7 @@ router.post('/lifts/add', (req, res) => {
         });
 });
 
+// TODO - change to PUT
 router.post('/lifts/modify', (req, res) => {
     // Request needs lift id and new name
     const liftId = req.body.id;
@@ -145,6 +150,8 @@ router.post('/lifts/modify', (req, res) => {
 });
 
 /* Remove a lift */
+
+// TODO - change to DELETE
 router.post('/lifts/delete', (req, res) => {
     // Request needs name of lift and username
     const name = req.body.name;
@@ -172,6 +179,7 @@ router.post('/lifts/delete', (req, res) => {
         });
 });
 
+// TODO - change to DELETE
 router.post('/lifts/instances/delete', (req, res) => {
     const instanceId = req.body.id;
 
@@ -189,6 +197,7 @@ router.post('/lifts/instances/delete', (req, res) => {
         })
 });
 
+// TODO - change to PUT
 router.post('/lifts/instances/modify', (req, res) => {
     const instanceId = req.body.id;
     const oldDate = req.body.oldDate;

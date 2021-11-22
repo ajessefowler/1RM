@@ -7,8 +7,10 @@ exports.verify = (req, res, next) => {
     else {
         jwt.verify(token.split(" ")[1], tokenSecret, (err, value) => {
             if (err) res.status(500).json({error: 'cannot verify token'});
-            req.user = value.data;
-            next();
+            else {
+                req.user = value.data;
+                next();
+            }
         });
     }
 }

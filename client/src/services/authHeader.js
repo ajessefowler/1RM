@@ -3,7 +3,7 @@ export default function authHeader() {
     const token = localStorage.getItem('token');
   
     if (username && token) {
-      return { Authorization: 'Bearer ' + token };
+      return { 'x-access-token': token };
     } else {
       return {};
     }
