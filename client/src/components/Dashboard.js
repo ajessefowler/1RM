@@ -11,7 +11,7 @@ import authHeader from '../services/authHeader';
 
 const Dashboard = () => {
     const { token, setToken } = useToken();
-    const LIFTS_URL = 'http://localhost:3001/api/lifts';
+    const BASE_URL = 'http://localhost:3001/api/';
     const [lifts, setLifts] = useState([]);
     const [newInstance, setNewInstance] = useState({});
     const [newLift, setNewLift] = useState({});
@@ -24,11 +24,9 @@ const Dashboard = () => {
     };
 
     useEffect(() => {
-        const input = { username: localStorage.getItem('username') };
-        fetch(LIFTS_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'x-access-token': localStorage.getItem('token') },
-            body: JSON.stringify(input)
+        fetch(BASE_URL + localStorage.getItem('userId') + '/lifts', {
+            method: 'GET',
+            headers: { 'x-access-token': localStorage.getItem('token') }
         })
             .then(response => response.json())
             .then(dataJson => {
@@ -59,11 +57,12 @@ const Dashboard = () => {
                 </div>
                 : <h2 className="welcome"></h2>}
             <div className="dash">
-                {lifts && lifts.length < 1 ?
-                    <p>Add a lift to start tracking your e1RMs.</p> : lifts.map((item, index) => (
+                {lifts.length < 1 ?
+                    <p>Add a lift to start tracking your e1RMs.</p> : null }
+                {lifts.length > 0 ? lifts.map((item, index) => (
                         <Lift key={index} id={item._id} name={item.name} newInstance={newInstance}
                             setRemovedLift={setRemovedLift} setModifiedLift={setModifiedLift} />
-                    ))}
+                    )) : null }
             </div>
             <AddLift setNewLift={setNewLift} />
         </div>

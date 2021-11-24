@@ -13,10 +13,9 @@ router.post('/1rm', (req, res) => {
 });
 
 /* Get lifts for user. */
-// TODO - change to GET
-router.post('/lifts', middleware.verify, (req, res) => {
+router.get('/:userId/lifts', middleware.verify, (req, res) => {
     // Request needs username
-    User.findOne({ username: req.body.username })
+    User.findById(req.params.userId)
         .then(user => {
             if (user) {
                 // Get all lifts for user
@@ -38,12 +37,10 @@ router.post('/lifts', middleware.verify, (req, res) => {
         });
 });
 
+router.get('/:liftId/instances', middleware.verify, (req, res) => {
+    const liftId = req.params.liftId;
 
-// TODO - change to GET
-router.post('/lifts/instances', middleware.verify, (req, res) => {
-    const liftId = req.body.id;
-
-    Lift.findById(liftId)
+    Lift.findById(req.params.liftId)
         .then(lift => {
             LiftInstance.find({ lift: lift })
                 .then(instances => {

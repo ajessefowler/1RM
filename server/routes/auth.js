@@ -11,7 +11,7 @@ const rounds = 10;
 router.post('/login', (req, res) => {
     User.findOne({username: req.body.username})
         .then(user => {
-            if (!user) res.status(404).json({error: 'no user found'})
+            if (!user) res.status(404).json({error: 'no user found'});
             else {
                 bcrypt.compare(req.body.password, user.password, (error, match) => {
                     if (error) res.status(500).json(error)
@@ -46,6 +46,13 @@ router.post('/register', (req, res) => {
             } else {
                 res.status(500).json({error: 'username already taken'});
             }
+        });
+});
+
+router.post('/changePassword/:userId', (req, res) => {
+    User.findById(req.params.userId)
+        .then(user => {
+            if (!user) res.status(404).json({error: 'no user found'});
         });
 });
 

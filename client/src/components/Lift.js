@@ -10,7 +10,7 @@ function Lift(props) {
     const [deletedInstance, setDeletedInstance] = useState({});
     const [modifiedInstance, setModifiedInstance] = useState({});
     const [modifyIsOpen, setModifyIsOpen] = useState(false);
-    const INSTANCES_URL = 'http://localhost:3001/api/lifts/instances';
+    const BASE_URL = 'http://localhost:3001/api/';
 
     const handleDelete = (event) => {
         const url = 'http://localhost:3001/api/lifts/delete';
@@ -22,12 +22,9 @@ function Lift(props) {
     }
 
     useEffect(() => {
-        const input = { id: id };
-
-        fetch(INSTANCES_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'x-access-token': localStorage.getItem('token') },
-            body: JSON.stringify(input)
+        fetch(BASE_URL + id + '/instances', {
+            method: 'GET',
+            headers: { 'x-access-token': localStorage.getItem('token') }
         })
             .then(response => response.json())
             .then(dataJson => {
