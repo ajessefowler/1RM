@@ -26,7 +26,7 @@ function Lift(props) {
 
         fetch(INSTANCES_URL, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'x-access-token': localStorage.getItem('token') },
             body: JSON.stringify(input)
         })
             .then(response => response.json())
@@ -51,7 +51,7 @@ function Lift(props) {
                 id={id} setModifiedLift={props.setModifiedLift} /> : null }
             <div className="liftHeader">
                 <h2>{props.name}</h2>
-                {instances.length <= 0 ? <p></p> : <p>Most recent e1RM - {Math.round(instances[instances.length - 1].erm)} lbs.</p>}
+                {instances.length <= 0 ? <p></p> : <p>Most recent e1RM - {Math.round(instances[instances.length - 1].erm)} {localStorage.getItem('units')}.</p>}
             </div>
             {instances.length <= 0 ? (
                 <p className="emptyLift">No data for this lift.</p>

@@ -27,7 +27,7 @@ const Dashboard = () => {
         const input = { username: localStorage.getItem('username') };
         fetch(LIFTS_URL, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'x-access-token': localStorage.getItem('token') },
             body: JSON.stringify(input)
         })
             .then(response => response.json())
@@ -59,7 +59,7 @@ const Dashboard = () => {
                 </div>
                 : <h2 className="welcome"></h2>}
             <div className="dash">
-                {lifts.length < 1 ?
+                {lifts && lifts.length < 1 ?
                     <p>Add a lift to start tracking your e1RMs.</p> : lifts.map((item, index) => (
                         <Lift key={index} id={item._id} name={item.name} newInstance={newInstance}
                             setRemovedLift={setRemovedLift} setModifiedLift={setModifiedLift} />

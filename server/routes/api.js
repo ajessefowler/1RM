@@ -13,9 +13,8 @@ router.post('/1rm', (req, res) => {
 });
 
 /* Get lifts for user. */
-
 // TODO - change to GET
-router.post('/lifts', (req, res) => {
+router.post('/lifts', middleware.verify, (req, res) => {
     // Request needs username
     User.findOne({ username: req.body.username })
         .then(user => {
@@ -41,7 +40,7 @@ router.post('/lifts', (req, res) => {
 
 
 // TODO - change to GET
-router.post('/lifts/instances', (req, res) => {
+router.post('/lifts/instances', middleware.verify, (req, res) => {
     const liftId = req.body.id;
 
     Lift.findById(liftId)
@@ -61,7 +60,7 @@ router.post('/lifts/instances', (req, res) => {
 });
 
 /* Add a new instance of a lift. */
-router.post('/lifts/instances/add', (req, res) => {
+router.post('/lifts/instances/add', middleware.verify, (req, res) => {
     // Request needs name of lift, username, weight, reps, and date
     const name = req.body.name;
 
@@ -106,7 +105,7 @@ router.post('/lifts/instances/add', (req, res) => {
 });
 
 /* Add a new lift. */
-router.post('/lifts/add', (req, res) => {
+router.post('/lifts/add', middleware.verify, (req, res) => {
     // Request needs name of lift and username
     const name = req.body.name;
     const username = req.body.username;

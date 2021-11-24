@@ -15,7 +15,11 @@ async function register(username, password) {
     .then(response => response.json())
     .then(dataJson => {
         if (dataJson.token) localStorage.setItem('token', dataJson.token);
-        if (dataJson.user) localStorage.setItem('username', dataJson.user.username);
+        if (dataJson.user) {
+            localStorage.setItem('username', dataJson.user.username);
+            localStorage.setItem('userId', dataJson.user._id);
+            localStorage.setItem('units', dataJson.user.units);
+        } 
         return dataJson;
     })
     .catch(error => {
@@ -34,8 +38,11 @@ async function login(username, password) {
     .then(response => response.json())
     .then(dataJson => {
         if (dataJson.token) localStorage.setItem('token', dataJson.token);
-        if (dataJson.user) localStorage.setItem('username', dataJson.user.username);
-        // console.log(dataJson);
+        if (dataJson.user) {
+            localStorage.setItem('username', dataJson.user.username);
+            localStorage.setItem('userId', dataJson.user._id);
+            localStorage.setItem('units', dataJson.user.units);
+        }
         return dataJson;
     })
     .catch(error => {

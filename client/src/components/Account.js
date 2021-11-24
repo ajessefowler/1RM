@@ -17,14 +17,18 @@ const Account = (props) => {
         else {
             // Call API to delete account and log out
             AuthService.logout();
-            this.props.history.push('/'); //error
             window.location.reload();
         }
+    }
+
+    const handleUnitChange = (event) => {
+
     }
 
     return (
         <div className="accountPanel">
             <div className="accountContent">
+                <div className="accountBackground" onClick={handleClose}></div>
                 <div className="accountHeader">
                     <h2>My Account</h2>
                     <p className="closeAccountPanel" onClick={handleClose}>X</p>

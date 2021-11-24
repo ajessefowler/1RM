@@ -44,7 +44,7 @@ class OneRepMaxForm extends React.Component {
         event.preventDefault();
 
         const erm = calculate1RM(this.state.weight, this.state.reps);
-        this.setState({ erm: Math.round(erm), message: 'Your e1RM is ' + Math.round(erm) + ' lbs.' });
+        this.setState({ erm: Math.round(erm), message: 'Your e1RM is ' + Math.round(erm) + ' ' + localStorage.getItem('units') + '.' });
 
         return erm;
     }
@@ -66,7 +66,7 @@ class OneRepMaxForm extends React.Component {
 
             fetch(url, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', 'x-access-token': localStorage.getItem('token') },
                 body: JSON.stringify(input)
             })
                 .then(response => response.json())

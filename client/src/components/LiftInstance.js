@@ -7,7 +7,7 @@ function LiftInstance(props) {
 
     return (
         <div>
-             <p>Date: {formatDate(props.date)}, e1RM: {props.erm} lbs, Weight: {props.weight}, Reps: {props.reps}</p>
+             <p>Date: {formatDate(props.date)}, e1RM: {props.erm} {localStorage.getItem('units')}, Weight: {props.weight}, Reps: {props.reps}</p>
         </div>
     );           
 }
