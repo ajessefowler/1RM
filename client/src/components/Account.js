@@ -13,11 +13,25 @@ const Account = (props) => {
     };
 
     const handleDeleteAccount = (event) => {
+        const url = 'http://localhost:3001/api/users/' + localStorage.getItem('userId') + '/delete';
+
         if (!confirmDeletion) setConfirmDeletion(true);
         else {
-            // Call API to delete account and log out
             AuthService.logout();
             window.location.reload();
+
+            fetch(url, {
+                method: 'DELETE',
+                headers: { 'x-access-token': localStorage.getItem('token') }
+            })
+                .then(response => response.json())
+                .then(dataJson => {
+                    console.log('account deleted');
+                })
+                .catch(error => {
+                    console.error(error);
+                })
+            
         }
     }
 
@@ -31,6 +45,8 @@ const Account = (props) => {
             .then(response => response.json())
             .then(dataJson => {
                 console.log(dataJson);
+                if (localStorage.getItem('units') == 'lbs') localStorage.setItem('units', 'kg');
+                else localStorage.setItem('units', 'lbs');
             })
             .catch(error => {
                 console.error('Error:', error);

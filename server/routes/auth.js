@@ -49,10 +49,25 @@ router.post('/register', (req, res) => {
         });
 });
 
-router.post('/changePassword/:userId', (req, res) => {
+router.put('/changePassword/:userId', (req, res) => {
     User.findById(req.params.userId)
         .then(user => {
             if (!user) res.status(404).json({error: 'no user found'});
+            else {
+                bcrypt.hash(req.body.newPassword, rounds, (error, hash) => {
+                    if (error) res.status(500).json(error);
+                    else {
+                        user.password = hash;
+                        user.save()
+                            .then(user => {
+                                res.status(200).json("success");
+                            })
+                            .catch(error => {
+                                res.status(500).json(error);
+                            });
+                    }
+                });
+            }
         });
 });
 
@@ -72,7 +87,7 @@ router.post('/verifyJwt', middleware.verify, (req, res) => {
 })
 
 function generateToken(user) {
-    return jwt.sign({data: user}, tokenSecret, {expiresIn: '24h'});
+    return jwt.sign({data: user}, tokenSecret, {expiresIn: '30d'});
 }
 
 module.exports = router;

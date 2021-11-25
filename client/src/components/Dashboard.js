@@ -8,8 +8,9 @@ import AddLift from '../components/AddButton';
 import useToken from '../hooks/useToken';
 
 import authHeader from '../services/authHeader';
+import { checkPropTypes } from "prop-types";
 
-const Dashboard = () => {
+const Dashboard = (props) => {
     const { token, setToken } = useToken();
     const BASE_URL = 'http://localhost:3001/api/';
     const [lifts, setLifts] = useState([]);
@@ -43,7 +44,7 @@ const Dashboard = () => {
     if (!token) return <Login setToken={setToken} />;
     else return (
         <div>
-            {accountIsOpen ? <Account setAccountIsOpen={setAccountIsOpen} /> : null }
+            {accountIsOpen ? <Account setAccountIsOpen={setAccountIsOpen} units={props.units}/> : null }
             {localStorage.getItem('username')
                 ? <div className="welcome">
                     <div className="welcomeLeft">
