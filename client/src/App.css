@@ -193,6 +193,15 @@ input[type=submit], button {
   transform-origin: bottom right;
 }
 
+@media only screen and (max-width: 550px) {
+  .addButton {
+    right: 25px;
+    bottom: 25px;
+    width: calc(100% - 50px);
+    height: 200px;
+  }
+}
+
 .addButton > h2 {
   color: rgba(250, 250, 250, 1);
   cursor: pointer;

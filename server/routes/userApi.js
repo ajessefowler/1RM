@@ -3,21 +3,36 @@ const express = require('express');
 const router = express.Router();
 const middleware = require('../middleware');
 const User = require('../models/user');
+const Lift = require('../models/lift');
+const LiftInstance = require('../models/liftinstance');
 
-router.put('/users/:userId/toggleUnits', (req, res) => {
+router.put(':userId/toggleUnits', middleware.verify, (req, res) => {
     const userId = req.params.userId;
 
     User.findById(req.params.userId)
         .then(user => {
             if (!user) res.status(404).json({error: 'no user found'})
             else {
-                // TODO - Convert all lift instances to new unit
                 if (user.units === 'lbs') {
                     user.units = 'kg';
                 }
                 else {
                     user.units = 'lbs';
                 }
+
+                Lift.find({user: user})
+                .then(lifts => {
+                    lifts.forEach(lift => {
+                        LiftInstance.find({lift: lift})
+                            .then(liftInstances => {
+                                convertAllInstances(liftInstances, user.units);
+                                res.status(200).json({newUnits: user.units});
+                            })
+                    })
+                })
+                .catch(error => {
+                    res.status(500).json(error);
+                })
             }
         })
         .catch(error => {
@@ -25,7 +40,7 @@ router.put('/users/:userId/toggleUnits', (req, res) => {
         });
 });
 
-router.delete('/users/:userId/delete', (req, res) => {
+router.delete(':userId/delete', (req, res) => {
     User.findByIdAndRemove(req.params.userId)
         .then(response => {
             res.status(200).json(response);
@@ -34,5 +49,24 @@ router.delete('/users/:userId/delete', (req, res) => {
             res.status(500).json(error);
         });
 });
+
+function convertAllInstances(lifts, newUnits) {
+    newInstances = lifts.map(lift => {
+        if (newUnits === 'lbs') {
+            lift.erm = lift.erm * 2.205;
+            lift.weight = lift.weight * 2.205;
+        } else {
+            lift.erm = lift.erm / 2.205;
+            lift.weight = lift.weight / 2.205;
+        }
+        lift.save()
+            .then(lift => {
+                console.log('saved');
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    });
+}
 
 module.exports = router;

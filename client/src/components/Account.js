@@ -22,7 +22,19 @@ const Account = (props) => {
     }
 
     const handleUnitChange = (event) => {
+        const url = 'http://localhost:3001/api/users/' + localStorage.getItem('userId') + '/toggleUnits';
 
+        fetch(url, {
+            method: 'PUT',
+            headers: { 'x-access-token': localStorage.getItem('token') }
+        })
+            .then(response => response.json())
+            .then(dataJson => {
+                console.log(dataJson);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
     }
 
     return (
@@ -53,6 +65,7 @@ const Account = (props) => {
                 </div>
                 <div className="accountItem">
                     <p className="accountLabel">Change Units</p>
+                    <p onClick={handleUnitChange}>Click to change units!</p>
                 </div>
                 <div className="accountItem">
                     <p className="accountLabel">Delete Account</p>
