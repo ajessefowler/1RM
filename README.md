@@ -4,6 +4,8 @@ A web application that allows users to calculate their estimated one-rep maxes f
 <h3>Requirements</h3>
 Node and npm must be installed to use this project.
 
+<h3>Screenshots</h3>
+<img width="1393" alt="Screen Shot 2021-12-01 at 5 41 51 PM" src="https://user-images.githubusercontent.com/32973242/144326081-e02742e9-6101-4ff7-97f0-eee1f6b74c62.png">
 <h3>How To Use</h3>
 This repository contains both the client and the server. Begin by entering the server directory and running the following command to start the server:
 
