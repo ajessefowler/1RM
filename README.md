@@ -20,7 +20,7 @@ Then, run the following command to start the server:
 npm start
 ```
 
-Then, enter the client directory and enter the same two commands to install all requirements and start the client.
+Then, enter the client directory and enter the <b>same two commands</b> to install all requirements and start the client.
 
 The client should open in your default web browser. To use the application, begin by creating an account. After your account is created, you will automatically be logged in. Add a lift by clicking or tapping the "Add Lift" button in the bottom right and entering the name of the lift. To add a data point to a lift, begin by entering the weight and number of reps done at the top of the screen. After calculating the estimated one-rep max, you'll have to opportunity to save that data to any lift after selecting the correct date.
 
