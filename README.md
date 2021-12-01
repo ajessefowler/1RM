@@ -30,4 +30,3 @@ The names of each lift can be modified by clicking the pencil at the top right o
 - Node
 - React
 - MongoDB
-- JavaScript
