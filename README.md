@@ -1,4 +1,4 @@
-# 1RM
+# Weightlifting Tracker
 A web application that allows users to calculate their estimated one-rep maxes for weightlifting. Users can create an account to track their progress over time for any number of lifts. A graph is displayed for each lift to visualize the progress that has been made.
 
 <h3>Requirements</h3>
