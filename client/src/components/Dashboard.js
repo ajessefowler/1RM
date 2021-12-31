@@ -4,7 +4,7 @@ import Logout from '../components/Logout';
 import Account from '../components/Account';
 import OneRepMaxForm from '../components/OneRepMaxForm';
 import Lift from '../components/Lift';
-import AddButton from '../components/AddButton';
+import AddLiftButton from './AddLiftButton';
 import useToken from '../hooks/useToken';
 
 const Dashboard = (props) => {
@@ -22,7 +22,7 @@ const Dashboard = (props) => {
     };
 
     useEffect(() => {
-        console.log(props)
+        console.log(props);
         fetch(BASE_URL + localStorage.getItem('userId') + '/lifts', {
             method: 'GET',
             headers: { 'x-access-token': localStorage.getItem('token') }
@@ -64,7 +64,7 @@ const Dashboard = (props) => {
                             setRemovedLift={setRemovedLift} setModifiedLift={setModifiedLift} units={props.units}/>
                     )) : null }
             </div>
-            <AddButton setNewLift={setNewLift} />
+            <AddLiftButton setNewLift={setNewLift} />
         </div>
     );
 }

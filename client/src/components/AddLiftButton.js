@@ -36,7 +36,7 @@ const AddButton = (props) => {
     }
 
     return (
-        <div>
+        <div className="addData">
         {!isOpen ? <div onClick={handleButtonClick} className="addButton collapsed">
                 <h2>Add Lift</h2>
                 <div className="addButtonSymbol">

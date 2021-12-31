@@ -41,8 +41,6 @@ router.get('/:userId/lifts', middleware.verify, (req, res) => {
 });
 
 router.get('/:liftId/instances', middleware.verify, (req, res) => {
-    const liftId = req.params.liftId;
-
     Lift.findById(req.params.liftId)
         .then(lift => {
             LiftInstance.find({ lift: lift })
@@ -160,7 +158,7 @@ router.post('/lifts/delete', (req, res) => {
         .then(user => {
             if (user) {
                 /* Delete all instances before deleting lift itself */
-                const deletedCount = deleteAllInstances(name, user);
+                deleteAllInstances(name, user);
 
                 Lift.findOneAndDelete({ name: name, user: user })
                     .then(response => {

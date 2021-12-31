@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AuthService from '../services/auth';
+import UnitToggle from '../components/UnitToggle';
 
 const Account = (props) => {
     const [confirmDeletion, setConfirmDeletion] = useState(false);
@@ -100,7 +101,7 @@ const Account = (props) => {
                 </div>
                 <div className="accountItem">
                     <p className="accountLabel">Change Units</p>
-                    <p onClick={handleUnitChange}>Click to change units!</p>
+                    <UnitToggle handleUnitChange={handleUnitChange} units={props.units}/>
                 </div>
                 <div className="accountItem">
                     <p className="accountLabel">Delete Account</p>
