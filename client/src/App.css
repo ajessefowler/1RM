@@ -597,6 +597,34 @@ input[type=submit], button {
   .formItem > select {
     margin-right: 0 !important;
   }
+
+  .accountHeader {
+    width: calc(100% - 22px);
+    margin: 0 11px;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .accountItem {
+    padding: 8px 20px;
+    margin: 3px 10px;
+  }
+
+  .accountLabel {
+    margin-bottom: 0;
+  }
+
+  .accountFormContainer {
+    padding-top: 15px;
+  }
+
+  .unitToggle {
+    padding: 10px 0 10px;
+  }
+
+  .closeAccountPanel {
+    font-size: 20pt;
+  }
 }
 
 @media only screen and (max-width: 950px) {
