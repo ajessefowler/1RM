@@ -46,7 +46,7 @@ const Delete = (props) => {
         props.setModifyIsOpen(false);
 
         fetch(url, {
-            method: 'POST',
+            method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(input)
         })

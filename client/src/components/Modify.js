@@ -72,15 +72,13 @@ const Modify = (props) => {
     }
 
     const deleteInstance = (event) => {
-        const url = 'http://localhost:3001/api/lifts/instances/delete';
-        const input = { id: props.id };
+        const url = 'http://localhost:3001/api/lifts/instances/' + props.id + '/delete';
 
         event.preventDefault();
 
         fetch (url, {
-            method: 'POST',
+            method: 'DELETE',
             headers: {'Content-Type':'application/json'},
-            body: JSON.stringify(input)
         })
         .then(response => response.json())
         .then(dataJson => {

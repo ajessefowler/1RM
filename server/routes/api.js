@@ -146,9 +146,7 @@ router.put('/lifts/modify', (req, res) => {
 });
 
 /* Remove a lift */
-
-// TODO - change to DELETE
-router.post('/lifts/delete', (req, res) => {
+router.delete('/lifts/delete', (req, res) => {
     // Request needs name of lift and username
     const name = req.body.name;
     const username = req.body.username;
@@ -175,9 +173,9 @@ router.post('/lifts/delete', (req, res) => {
         });
 });
 
-// TODO - change to DELETE
-router.post('/lifts/instances/delete', (req, res) => {
-    const instanceId = req.body.id;
+/* Remove an instance of a lift */
+router.delete('/lifts/instances/:instanceId/delete', (req, res) => {
+    const instanceId = req.params.instanceId;
 
     LiftInstance.findByIdAndDelete(instanceId)
         .then(response => {
