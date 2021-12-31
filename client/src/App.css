@@ -95,6 +95,11 @@ input[type=submit], button {
   background-color: rgba(175, 175, 175, 0.2);
 }
 
+.changePasswordMessage {
+  width: 100%;
+  color: rgb(165, 62, 62);
+}
+
 .homeText {
   margin: 0;
   padding: 32px 100px 0;
@@ -353,7 +358,7 @@ input[type=submit], button {
   z-index: 2;
 }
 
-.accountForm {
+.accountFormContainer {
   display: flex;
   width: 100%;
   justify-content: flex-end;
@@ -361,12 +366,24 @@ input[type=submit], button {
   padding: 20px 0 0;
 }
 
-.accountForm > .submitBtn {
-  margin-left: auto;
+.flexVertical {
+  flex-direction: column;
 }
 
-.accountForm > p {
+.accountFormContainer > p {
   margin: 0 auto 0 0;
+}
+
+.accountForm {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.accountForm > .submitBtn {
+  margin-left: auto;
 }
 
 .modifyButtons {

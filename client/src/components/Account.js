@@ -32,6 +32,7 @@ const Account = (props) => {
         }
     }
 
+    // TODO - Handle this inside unit toggle instead of here
     const handleUnitChange = (event) => {
         const url = 'http://localhost:3001/api/users/' + localStorage.getItem('userId') + '/toggleUnits';
 
@@ -67,7 +68,7 @@ const Account = (props) => {
                 </div>
                 <div className="accountItem">
                     <p className="accountLabel">Delete Account</p>
-                    <div className="accountForm">
+                    <div className="accountFormContainer">
                         {confirmDeletion ? <p>Are you sure? This cannot be undone.</p> : null }
                         <button className="deleteBtn" onClick={handleDeleteAccount}>Delete Account</button>
                     </div>
