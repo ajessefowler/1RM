@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Login from '../components/Login';
-import Logout from '../components/Logout';
-import Account from '../components/Account';
+import LogoutButton from './LogoutButton';
+import AccountSettings from './AccountSettings';
 import OneRepMaxForm from '../components/OneRepMaxForm';
 import Lift from '../components/Lift';
 import AddLiftButton from './AddLiftButton';
@@ -43,13 +43,13 @@ const Dashboard = (props) => {
     if (!token) return <Login setToken={setToken} />;
     else return (
         <div>
-            {accountIsOpen ? <Account setAccountIsOpen={setAccountIsOpen} units={props.units} setUnits={props.setUnits}/> : null }
+            {accountIsOpen ? <AccountSettings setAccountIsOpen={setAccountIsOpen} units={props.units} setUnits={props.setUnits}/> : null }
             {localStorage.getItem('username')
                 ? <div className="welcome">
                     <div className="welcomeLeft">
                         <h2>Welcome back, {localStorage.getItem('username')}.</h2>
                         <div className="welcomeButtons">
-                            <Logout />
+                            <LogoutButton />
                             <button className="headerBtn" onClick={handleOpenAccount}>My Account</button>
                         </div>
                     </div>
@@ -57,9 +57,9 @@ const Dashboard = (props) => {
                 </div>
                 : <h2 className="welcome"></h2>}
             <div className="dash">
-                {lifts.length < 1 ?
+                {lifts && lifts.length < 1 ?
                     <p>Add a lift to start tracking your e1RMs.</p> : null }
-                {lifts.length > 0 ? lifts.map((item, index) => (
+                {lifts && lifts.length > 0 ? lifts.map((item, index) => (
                         <Lift key={index} id={item._id} name={item.name} newInstance={newInstance}
                             setRemovedLift={setRemovedLift} setModifiedLift={setModifiedLift} units={props.units}/>
                     )) : null }

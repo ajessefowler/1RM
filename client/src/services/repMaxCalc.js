@@ -1,6 +1,6 @@
 export default function calculate1RM(weight, reps) {
     // With only one rep, we assume that is a max
-    if (reps == 1) return weight;
+    if (reps === 1) return weight;
     
     // Use 3 different estimation techniques
     const epley = weight * (1 + (reps / 30));

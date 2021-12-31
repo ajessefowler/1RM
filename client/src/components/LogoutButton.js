@@ -2,7 +2,7 @@ import React, { useState, useRef, Component } from 'react';
 import AuthService from '../services/auth';
 import { withRouter } from 'react-router-dom';
 
-class Logout extends Component {
+class LogoutButton extends Component {
 
     handleClick = (e) => {
         e.preventDefault();
@@ -22,4 +22,4 @@ class Logout extends Component {
     }
 }
 
-export default withRouter(Logout);
+export default withRouter(LogoutButton);

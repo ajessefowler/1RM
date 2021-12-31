@@ -454,12 +454,6 @@ input[type=submit], button {
   justify-content: center;
 }
 
-@media only screen and (max-width: 760px) {
-  .repmax {
-    width: 40%;
-  }
-}
-
 .rmform {
   display: flex;
   /* Padding-right centers the form inside its container */
@@ -556,11 +550,52 @@ input[type=submit], button {
 @media only screen and (max-width: 700px) {
   .welcome {
     flex-direction: column;
-    padding: 40px 20px 10px;
+    padding: 40px 0 10px;
+  }
+
+  .dash {
+    padding-left: 5px;
+    padding-right: 5px;
   }
 
   .lift {
     padding: 20px 20px 10px 20px;
+    margin: 6px;
+  }
+
+  .repmax {
+    width: 100%;
+    padding: 0 11px;
+  }
+
+  .rmform {
+    margin: 13px 40px 10px;
+  }
+
+  .saveForm {
+    flex-direction: column;
+  }
+
+  .rmform > .formItem, .saveForm > .formItem {
+    padding: 8px;
+  }
+
+  .rmform > .submitBtn {
+    margin-bottom: 20px;
+  }
+
+  .accountItem {
+    margin: 5px 10px;
+    padding: 20px 15px;
+    width: calc(100% - 20px);
+  }
+
+  .accountForm {
+    flex-direction: column;
+  }
+
+  .formItem > select {
+    margin-right: 0 !important;
   }
 }
 

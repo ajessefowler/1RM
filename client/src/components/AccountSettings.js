@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import AuthService from '../services/auth';
-import UnitToggle from '../components/UnitToggle';
+import UnitToggle from './UnitToggle';
 import ChangePasswordForm from "./ChangePasswordForm";
 
-const Account = (props) => {
+const AccountSettings = (props) => {
     const [confirmDeletion, setConfirmDeletion] = useState(false);
 
     const handleClose = (event) => {
@@ -78,4 +78,4 @@ const Account = (props) => {
     );
 };
 
-export default Account;
+export default AccountSettings;

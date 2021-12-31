@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Delete = (props) => {
+const ModifyLift = (props) => {
     const id = props.id;
     const [deleteInitiated, setDeleteInitiated] = useState(false);
     const [newName, setNewName] = useState(props.name);
@@ -80,4 +80,4 @@ const Delete = (props) => {
     );
 }
 
-export default Delete;
+export default ModifyLift;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import LineChart from '../components/LineChart';
-import EditLift from './EditLift';
+import ModifyLift from './ModifyLift';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPen } from '@fortawesome/free-solid-svg-icons'
 
@@ -44,7 +44,7 @@ function Lift(props) {
     return (
         <div className="lift">
             <FontAwesomeIcon icon={faPen} onClick={handleDelete} className="editLift" />
-            {modifyIsOpen ? <EditLift setRemovedLift={props.setRemovedLift} setModifyIsOpen={setModifyIsOpen} name={props.name}
+            {modifyIsOpen ? <ModifyLift setRemovedLift={props.setRemovedLift} setModifyIsOpen={setModifyIsOpen} name={props.name}
                 id={id} setModifiedLift={props.setModifiedLift} /> : null }
             <div className="liftHeader">
                 <h2>{props.name}</h2>

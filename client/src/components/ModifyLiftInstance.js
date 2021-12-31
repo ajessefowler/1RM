@@ -4,7 +4,7 @@ import calculate1RM from "../services/repMaxCalc";
 
 import "react-datepicker/dist/react-datepicker.css";
 
-const Modify = (props) => {
+const ModifyLiftInstance = (props) => {
     // Need to add one day when we parse the date due to unknown higher powers
     const dateParsed = new Date(formatDateString(props.date));
     const dateAdded = dateParsed.setDate(dateParsed.getDate() + 1);
@@ -121,4 +121,4 @@ const Modify = (props) => {
     );
 }
 
-export default Modify;
+export default ModifyLiftInstance;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
-import Modify from './Modify';
+import ModifyLiftInstance from './ModifyLiftInstance';
 
 const liftColors = new Map();
 
@@ -159,7 +159,7 @@ const LineChart = (props) => {
     return (
         <div className="chart">
             <Line data={data} options={options} />
-            {(modifyIsOpen) ? <Modify setModifyIsOpen={setModifyIsOpen} date={date} e1rm={e1rm}
+            {(modifyIsOpen) ? <ModifyLiftInstance setModifyIsOpen={setModifyIsOpen} date={date} e1rm={e1rm}
                 reps={rep} weight={weight} id={instanceId} setDeletedInstance={props.setDeletedInstance}
                 setModifyIsOpen={setModifyIsOpen} setModifiedInstance={props.setModifiedInstance} units={props.units}/> : ''}
         </div>
