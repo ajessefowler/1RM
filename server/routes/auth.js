@@ -14,9 +14,9 @@ router.post('/login', (req, res) => {
             if (!user) res.status(404).json({error: 'no user found'});
             else {
                 bcrypt.compare(req.body.password, user.password, (error, match) => {
-                    if (error) res.status(500).json(error)
-                    else if (match) res.status(200).json({user: user, token: generateToken(user)})
-                    else res.status(403).json({error: 'passwords do not match'})
+                    if (error) res.status(500).json(error);
+                    else if (match) res.status(200).json({user: user, token: generateToken(user)});
+                    else res.status(403).json({error: 'password is incorrect'});
                 });
             }
         })
@@ -54,18 +54,24 @@ router.put('/changePassword/:userId', (req, res) => {
         .then(user => {
             if (!user) res.status(404).json({error: 'no user found'});
             else {
-                bcrypt.hash(req.body.newPassword, rounds, (error, hash) => {
+                bcrypt.compare(req.body.oldPassword, user.password, (error, match) => {
                     if (error) res.status(500).json(error);
-                    else {
-                        user.password = hash;
-                        user.save()
-                            .then(user => {
-                                res.status(200).json("success");
-                            })
-                            .catch(error => {
-                                res.status(500).json(error);
-                            });
+                    else if (match) {
+                        bcrypt.hash(req.body.newPassword, rounds, (error, hash) => {
+                            if (error) res.status(500).json(error);
+                            else {
+                                user.password = hash;
+                                user.save()
+                                    .then(updatedUser => {
+                                        res.status(200).json({user: updatedUser});
+                                    })
+                                    .catch(error => {
+                                        res.status(500).json(error);
+                                    });
+                            }
+                        });
                     }
+                    else res.status(403).json({error: 'current password is incorrect'});
                 });
             }
         });

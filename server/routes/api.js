@@ -22,7 +22,10 @@ router.get('/:userId/lifts', middleware.verify, (req, res) => {
                 Lift.find({ user: user })
                     .then(lifts => {
                         // Return lifts even if there are none
-                        res.status(200).json(lifts);
+                        res.status(200).json({
+                            lifts: lifts,
+                            units: user.units
+                        });
                     })
                     .catch(error => {
                         res.status(500).json(error);

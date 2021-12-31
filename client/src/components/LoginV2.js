@@ -4,7 +4,7 @@ import Input from 'react-validation/build/input';
 import CheckButton from 'react-validation/build/button';
 import AuthService from '../services/auth';
 import { useHistory } from 'react-router-dom';
-import Dashboard from './Dashboard';
+import Home from './Home';
 
 const required = (value) => {
   if (!value) {
@@ -52,7 +52,7 @@ function Login({ setToken }) {
             if (setToken) setToken(localStorage.getItem('token'));
             // TODO - lifts are not initialized in Dashboard with this
             // TODO - replace push with <Redirect />
-            history.push('/dashboard');
+            history.push('/');
           } else {
             setLoading(false);
             setMessage('Incorrect username or password.');
@@ -68,7 +68,7 @@ function Login({ setToken }) {
   }
 
   // If there is already a token, prevent user from logging in again
-  return localStorage.getItem('token') ? <Dashboard /> : (
+  return localStorage.getItem('token') ? <Home /> : (
     <div className="col-md-12">
       <div className="card card-container login">
         <h3>Login</h3>

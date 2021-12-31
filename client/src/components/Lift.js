@@ -39,7 +39,7 @@ function Lift(props) {
             .catch(error => {
                 console.error('Error:', error);
             });
-    }, [props.newInstance, deletedInstance, modifiedInstance]);
+    }, [props.newInstance, deletedInstance, modifiedInstance, props.units]);
 
     return (
         <div className="lift">
@@ -48,13 +48,13 @@ function Lift(props) {
                 id={id} setModifiedLift={props.setModifiedLift} /> : null }
             <div className="liftHeader">
                 <h2>{props.name}</h2>
-                {instances.length <= 0 ? <p></p> : <p>Most recent e1RM - {Math.round(instances[instances.length - 1].erm)} {localStorage.getItem('units')}.</p>}
+                {instances.length <= 0 ? <p></p> : <p>Most recent e1RM - {Math.round(instances[instances.length - 1].erm)} {props.units}.</p>}
             </div>
             {instances.length <= 0 ? (
                 <p className="emptyLift">No data for this lift.</p>
             ) : (
                 <LineChart data={instances} name={props.name} setDeletedInstance={setDeletedInstance}
-                    setModifiedInstance={setModifiedInstance} />
+                    setModifiedInstance={setModifiedInstance} units={props.units} />
             )}
         </div>
     );

@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import OneRepMaxForm from '../components/OneRepMaxForm';
 import Dashboard from '../components/Dashboard';
 import { Link } from 'react-router-dom';
 import useToken from '../hooks/useToken';
 
-const Home = () => {
+function Home(props) {
     const { token, setToken } = useToken();
     const [units, setUnits] = useState('lbs');
-
-    return token ? <Dashboard setUnits={setUnits} units={units}/> : (
+    
+    return token ? <Dashboard units={units} setUnits={setUnits}/> : (
         <div>
-            <OneRepMaxForm />
+            <OneRepMaxForm units={units}/>
             <p className="homeText">Create an account or login to save your progress and track your lifts over time.</p>
             <div className="homeButtons">
                 <Link className="inlineLink" to='/register'><button>Create Account</button></Link>

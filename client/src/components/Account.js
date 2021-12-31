@@ -1,16 +1,37 @@
 import React, { useState, useEffect } from "react";
 import AuthService from '../services/auth';
 
-// Change password
-// Delete account
-// Change units (lbs or kgs)
-
 const Account = (props) => {
     const [confirmDeletion, setConfirmDeletion] = useState(false);
+    const [oldPassword, setOldPassword] = useState('');
+    const [newPassword, setNewPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
 
     const handleClose = (event) => {
         props.setAccountIsOpen(false);
     };
+
+    const handleOldPasswordChange = (event) => {
+        setOldPassword(event.target.value);
+    }
+
+    const handleNewPasswordChange = (event) => {
+        setNewPassword(event.target.value);
+    }
+
+    const handleConfirmPasswordChange = (event) => {
+        setConfirmPassword(event.target.value);
+    }
+
+    const handlePasswordChange = (event) => {
+        const url = 'http://localhost:3001/api/auth/changePassword/' + localStorage.getItem('userId');
+
+        if (newPassword === confirmPassword) {
+
+        } else {
+            console.log("New passwords must match!");
+        }
+    }
 
     const handleDeleteAccount = (event) => {
         const url = 'http://localhost:3001/api/users/' + localStorage.getItem('userId') + '/delete';
@@ -31,7 +52,6 @@ const Account = (props) => {
                 .catch(error => {
                     console.error(error);
                 })
-            
         }
     }
 
@@ -43,10 +63,9 @@ const Account = (props) => {
             headers: { 'x-access-token': localStorage.getItem('token') }
         })
             .then(response => response.json())
-            .then(dataJson => {
-                console.log(dataJson);
-                if (localStorage.getItem('units') == 'lbs') localStorage.setItem('units', 'kg');
-                else localStorage.setItem('units', 'lbs');
+            .then(() => {
+                if (localStorage.getItem('units') == 'lbs') props.setUnits('kg');
+                else props.setUnits('lbs');
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -66,15 +85,15 @@ const Account = (props) => {
                     <div className="accountForm">
                         <div className="formItem">
                             <p>Current Password</p>
-                            <input type="password"></input>
+                            <input type="password" value={oldPassword} onChange={handleOldPasswordChange}></input>
                         </div>
                         <div className="formItem">
                             <p>New Password</p>
-                            <input type="password"></input>
+                            <input type="password" value={newPassword} onChange={handleNewPasswordChange}></input>
                         </div>
                         <div className="formItem">
                             <p>Confirm New Password</p>
-                            <input type="password"></input>
+                            <input type="password" value={confirmPassword} onChange={handleConfirmPasswordChange}></input>
                         </div>
                         <input className="submitBtn" type="submit" value="Submit" />
                     </div>

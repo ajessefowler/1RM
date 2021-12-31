@@ -95,8 +95,8 @@ const Modify = (props) => {
     return (
         <div className="panel">
             <div className="editHeader">
-                <h2><strong>Edit Record</strong></h2>
-                <p className="modifyE1rm">e1RM - <strong>{e1rm}</strong> lbs</p>
+                <h2><strong>Edit Instance</strong></h2>
+                <p className="modifyE1rm">e1RM - <strong>{e1rm}</strong> {props.units}</p>
             </div>
             <div className="formItem">
                 <p>Date</p>

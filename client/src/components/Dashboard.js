@@ -25,6 +25,7 @@ const Dashboard = (props) => {
     };
 
     useEffect(() => {
+        console.log(props)
         fetch(BASE_URL + localStorage.getItem('userId') + '/lifts', {
             method: 'GET',
             headers: { 'x-access-token': localStorage.getItem('token') }
@@ -33,18 +34,19 @@ const Dashboard = (props) => {
             .then(dataJson => {
                 /* TODO - This is called twice on login but only once if page 
                  *        loaded when already logged in. */
-                setLifts(dataJson);
+                setLifts(dataJson.lifts);
+                if (props.units !== dataJson.units) props.setUnits(dataJson.units);
                 return dataJson;
             })
             .catch(error => {
                 console.error('Error:', error);
             });
-    }, [newLift, removedLift, modifiedLift, accountIsOpen]);
+    }, [newLift, removedLift, modifiedLift, accountIsOpen, props.units]);
 
     if (!token) return <Login setToken={setToken} />;
     else return (
         <div>
-            {accountIsOpen ? <Account setAccountIsOpen={setAccountIsOpen} units={props.units}/> : null }
+            {accountIsOpen ? <Account setAccountIsOpen={setAccountIsOpen} units={props.units} setUnits={props.setUnits}/> : null }
             {localStorage.getItem('username')
                 ? <div className="welcome">
                     <div className="welcomeLeft">
@@ -54,7 +56,7 @@ const Dashboard = (props) => {
                             <button className="headerBtn" onClick={handleOpenAccount}>My Account</button>
                         </div>
                     </div>
-                    <OneRepMaxForm loggedIn="true" lifts={lifts} setNewInstance={setNewInstance} />
+                    <OneRepMaxForm loggedIn="true" lifts={lifts} setNewInstance={setNewInstance} units={props.units}/>
                 </div>
                 : <h2 className="welcome"></h2>}
             <div className="dash">
@@ -62,7 +64,7 @@ const Dashboard = (props) => {
                     <p>Add a lift to start tracking your e1RMs.</p> : null }
                 {lifts.length > 0 ? lifts.map((item, index) => (
                         <Lift key={index} id={item._id} name={item.name} newInstance={newInstance}
-                            setRemovedLift={setRemovedLift} setModifiedLift={setModifiedLift} />
+                            setRemovedLift={setRemovedLift} setModifiedLift={setModifiedLift} units={props.units}/>
                     )) : null }
             </div>
             <AddLift setNewLift={setNewLift} />

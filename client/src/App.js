@@ -25,7 +25,7 @@ function App() {
             <Route path='/register'>
               <Register setToken={setToken} />
             </Route>
-            <Route path='/dashboard' component={Dashboard} />
+            <Route path='/dashboard' component={Home} />
             <Route path='/' component={Error} />
           </Switch>
         </BrowserRouter>

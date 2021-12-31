@@ -136,10 +136,10 @@ const LineChart = (props) => {
             tooltip: {
                 callbacks: {
                     label: function (i, d) {
-                        return 'e1RM: ' + i.dataset.data[i.dataIndex] + ' lbs';
+                        return 'e1RM: ' + i.dataset.data[i.dataIndex] + ' ' + props.units;
                     },
                     afterBody: function (i, d) {
-                        return reps[i[0].dataIndex] + ' reps @ ' + weights[i[0].dataIndex] + ' lbs';
+                        return reps[i[0].dataIndex] + ' reps @ ' + weights[i[0].dataIndex] + ' ' + props.units;
                     }
                 },
                 displayColors: false,
@@ -149,7 +149,7 @@ const LineChart = (props) => {
             y: {
                 ticks: {
                     callback: function (value, index, values) {
-                        return value + ' lbs';
+                        return value + ' ' + props.units;
                     }
                 }
             }
@@ -161,7 +161,7 @@ const LineChart = (props) => {
             <Line data={data} options={options} />
             {(modifyIsOpen) ? <Modify setModifyIsOpen={setModifyIsOpen} date={date} e1rm={e1rm}
                 reps={rep} weight={weight} id={instanceId} setDeletedInstance={props.setDeletedInstance}
-                setModifyIsOpen={setModifyIsOpen} setModifiedInstance={props.setModifiedInstance} /> : ''}
+                setModifyIsOpen={setModifyIsOpen} setModifiedInstance={props.setModifiedInstance} units={props.units}/> : ''}
         </div>
     );
 };

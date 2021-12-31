@@ -32,7 +32,7 @@ router.put('/:userId/toggleUnits', middleware.verify, (req, res) => {
                         LiftInstance.find({lift: lift})
                             .then(liftInstances => {
                                 convertAllInstances(liftInstances, user.units);
-                                /*res.status(200).json({newUnits: user.units});*/
+                                res.status(200);
                             })
                         })
                     })
@@ -59,11 +59,11 @@ router.delete('/:userId/delete', (req, res) => {
 function convertAllInstances(lifts, newUnits) {
     newInstances = lifts.map(lift => {
         if (newUnits === 'lbs') {
-            lift.erm = lift.erm * 2.205;
-            lift.weight = lift.weight * 2.205;
+            lift.erm = Math.round(lift.erm * 2.205);
+            lift.weight = Math.round(lift.weight * 2.205);
         } else {
-            lift.erm = lift.erm / 2.205;
-            lift.weight = lift.weight / 2.205;
+            lift.erm = Math.round(lift.erm / 2.205);
+            lift.weight = Math.round(lift.weight / 2.205);
         }
         
         lift.save()

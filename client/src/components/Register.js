@@ -4,7 +4,7 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import AuthService from '../services/auth';
 import { useHistory } from 'react-router-dom';
-import Dashboard from './Dashboard';
+import Home from './Home';
 
 const required = (value) => {
     if (!value) {
@@ -66,7 +66,7 @@ function Register({setToken}) {
     }
 
     // If there is already a token, prevent user from logging in again
-    return localStorage.getItem('token') ? <Dashboard /> : (
+    return localStorage.getItem('token') ? <Home /> : (
         <div className="col-md-12">
           <div className="card card-container register">
             <h3>Register</h3>
