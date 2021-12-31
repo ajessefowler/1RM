@@ -366,8 +366,9 @@ input[type=submit], button {
   padding: 20px 0 0;
 }
 
-.flexVertical {
+.changePasswordContainer {
   flex-direction: column;
+  padding-top: 30px;
 }
 
 .accountFormContainer > p {

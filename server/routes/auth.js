@@ -71,7 +71,7 @@ router.put('/changePassword/:userId', (req, res) => {
                             }
                         });
                     }
-                    else res.status(403).json({error: 'current password is incorrect'});
+                    else res.status(403).json({error: 'Current password is incorrect.'});
                 });
             }
         });
