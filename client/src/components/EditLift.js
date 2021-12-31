@@ -25,7 +25,7 @@ const Delete = (props) => {
         event.preventDefault();
 
         fetch(url, {
-            method: 'POST',
+            method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(input)
         })

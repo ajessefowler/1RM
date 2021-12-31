@@ -131,8 +131,7 @@ router.post('/lifts/add', middleware.verify, (req, res) => {
         });
 });
 
-// TODO - change to PUT
-router.post('/lifts/modify', (req, res) => {
+router.put('/lifts/modify', (req, res) => {
     // Request needs lift id and new name
     const liftId = req.body.id;
     const newName = req.body.newName;
@@ -194,8 +193,7 @@ router.post('/lifts/instances/delete', (req, res) => {
         })
 });
 
-// TODO - change to PUT
-router.post('/lifts/instances/modify', (req, res) => {
+router.put('/lifts/instances/modify', (req, res) => {
     const instanceId = req.body.id;
     const oldDate = req.body.oldDate;
     const oldWeight = req.body.oldWeight;
