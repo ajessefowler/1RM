@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
-import Login from '../components/LoginV2';
+import Login from '../components/Login';
 import Logout from '../components/Logout';
 import Account from '../components/Account';
 import OneRepMaxForm from '../components/OneRepMaxForm';
 import Lift from '../components/Lift';
-import AddLift from '../components/AddButton';
+import AddButton from '../components/AddButton';
 import useToken from '../hooks/useToken';
-
-import authHeader from '../services/authHeader';
-import { checkPropTypes } from "prop-types";
 
 const Dashboard = (props) => {
     const { token, setToken } = useToken();
@@ -67,7 +64,7 @@ const Dashboard = (props) => {
                             setRemovedLift={setRemovedLift} setModifiedLift={setModifiedLift} units={props.units}/>
                     )) : null }
             </div>
-            <AddLift setNewLift={setNewLift} />
+            <AddButton setNewLift={setNewLift} />
         </div>
     );
 }

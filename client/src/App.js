@@ -1,8 +1,7 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Login from './components/LoginV2';
+import Login from './components/Login';
 import Register from './components/Register';
-import Dashboard from './components/Dashboard';
 import Error from './components/Error';
 import Home from './components/Home';
 import { BrowserRouter, Switch, Route} from 'react-router-dom';
