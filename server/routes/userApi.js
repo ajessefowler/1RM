@@ -6,6 +6,8 @@ const User = require('../models/user');
 const Lift = require('../models/lift');
 const LiftInstance = require('../models/liftinstance');
 
+const unitConversionMultiplier = 2.2046226218;
+
 router.put('/:userId/toggleUnits', middleware.verify, (req, res) => {
     User.findById(req.params.userId)
         .then(user => {
@@ -59,11 +61,11 @@ router.delete('/:userId/delete', (req, res) => {
 function convertAllInstances(lifts, newUnits) {
     newInstances = lifts.map(lift => {
         if (newUnits === 'lbs') {
-            lift.erm = Math.round(lift.erm * 2.205);
-            lift.weight = Math.round(lift.weight * 2.205);
+            lift.erm = Math.round(lift.erm * unitConversionMultiplier);
+            lift.weight = Math.round(lift.weight * unitConversionMultiplier);
         } else {
-            lift.erm = Math.round(lift.erm / 2.205);
-            lift.weight = Math.round(lift.weight / 2.205);
+            lift.erm = Math.round(lift.erm / unitConversionMultiplier);
+            lift.weight = Math.round(lift.weight / unitConversionMultiplier);
         }
         
         lift.save()
