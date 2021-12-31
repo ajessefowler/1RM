@@ -62,11 +62,6 @@ function OneRepMaxForm(props) {
     }
 
     useEffect(() => {
-        if (units !== props.units) {
-            if (units === 'kg') setErm(erm * 2.2);
-            else setErm(erm / 2.2);
-        }
-        
         setUnits(props.units);
 
         if (erm > 0) setMessage('Your e1RM is ' + Math.round(erm) + ' ' + units + '.');
