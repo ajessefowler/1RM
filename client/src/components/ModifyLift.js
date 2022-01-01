@@ -26,7 +26,7 @@ const ModifyLift = (props) => {
 
         fetch(url, {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'x-access-token': localStorage.getItem('token') },
             body: JSON.stringify(input)
         })
             .then(response => response.json())
@@ -47,7 +47,7 @@ const ModifyLift = (props) => {
 
         fetch(url, {
             method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'x-access-token': localStorage.getItem('token') },
             body: JSON.stringify(input)
         })
             .then(response => response.json())
