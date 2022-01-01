@@ -73,10 +73,10 @@ const ChangePasswordForm = (props) => {
                     <p>Confirm New Password</p>
                     <input type="password" value={confirmPassword} onChange={handleConfirmPasswordChange}></input>
                 </div>
-                {submitEnabled ? <input className="submitBtn" type="submit" value="Submit" onClick={handlePasswordChange}/> 
-                               : <input className="submitBtn" type="submit" value="Submit" disabled/>}
             </div>
             <p className="changePasswordMessage">{message}</p>
+            {submitEnabled ? <input className="submitBtn" type="submit" value="Submit" onClick={handlePasswordChange}/> 
+                               : <input className="submitBtn" type="submit" value="Submit" disabled/>}
         </div>
     )
 }

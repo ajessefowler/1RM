@@ -46,12 +46,7 @@ function Login({ setToken }) {
       AuthService.login(username, password)
         .then(data => {
           if (localStorage.getItem('username') && localStorage.getItem('token') != 'null') {
-            console.log(localStorage.getItem('username'));
-            console.log(localStorage.getItem('token'));
-            console.log(data);
             if (setToken) setToken(localStorage.getItem('token'));
-            // TODO - lifts are not initialized in Dashboard with this
-            // TODO - replace push with <Redirect />
             history.push('/');
           } else {
             setLoading(false);

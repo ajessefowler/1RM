@@ -46,9 +46,6 @@ function Register({setToken}) {
             AuthService.register(username, password)
             .then(data => {
                 if (localStorage.getItem('username') && localStorage.getItem('token') != 'null') {
-                    console.log(localStorage.getItem('username'));
-                    console.log(localStorage.getItem('token'));
-                    console.log(data);
                     if (setToken) setToken(localStorage.getItem('token'));
                     history.push('/dashboard');
                 } else {

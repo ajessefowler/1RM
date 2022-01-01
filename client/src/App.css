@@ -89,6 +89,8 @@ input[type=submit], button {
   background-color: rgba(175, 175, 175, 0.1);
   border: none;
   color: black;
+  height: auto !important;
+  padding: 8px 18px;
 }
 
 .headerBtn:hover {
@@ -303,6 +305,7 @@ input[type=submit], button {
 
 .accountHeader {
   width: 60%;             /* MATCH */
+  max-width: 675px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -320,6 +323,7 @@ input[type=submit], button {
   margin: 10px 50px;
   padding: 20px 50px;
   width: 60%;             /* MATCH */
+  max-width: 675px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -369,6 +373,8 @@ input[type=submit], button {
 .changePasswordContainer {
   flex-direction: column;
   padding-top: 30px;
+  align-items: flex-end;
+  width: 100%;
 }
 
 .accountFormContainer > p {
@@ -379,7 +385,7 @@ input[type=submit], button {
   display: flex;
   width: 100%;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -553,6 +559,10 @@ input[type=submit], button {
     padding: 40px 0 10px;
   }
 
+  .welcomeLeft {
+    padding: 50px 0 20px;
+  }
+
   .dash {
     padding-left: 5px;
     padding-right: 5px;
@@ -565,7 +575,7 @@ input[type=submit], button {
 
   .repmax {
     width: 100%;
-    padding: 0 11px;
+    padding: 0 11px 25px;
   }
 
   .rmform {
@@ -604,6 +614,12 @@ input[type=submit], button {
   }
 }
 
+@media only screen and (max-width: 1080px) {
+  .accountForm > .formItem > input {
+    margin: 0 10px;
+  }
+}
+
 @media only screen and (max-width: 400px) {
   .accountItem {
     padding: 8px 20px;
@@ -624,6 +640,12 @@ input[type=submit], button {
 
   .closeAccountPanel {
     font-size: 20pt;
+  }
+}
+
+@media only screen and (max-width: 860px) {
+  .formContainer {
+    max-width: 100%;
   }
 }
 
