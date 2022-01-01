@@ -1,4 +1,4 @@
-import React, { useState, useRef, Component } from 'react';
+import React, { Component } from 'react';
 import AuthService from '../services/auth';
 import { withRouter } from 'react-router-dom';
 

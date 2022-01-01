@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import OneRepMaxForm from '../components/OneRepMaxForm';
 import Dashboard from '../components/Dashboard';
 import { Link } from 'react-router-dom';
 import useToken from '../hooks/useToken';
 
-function Home(props) {
-    const { token, setToken } = useToken();
+function Home() {
+    const { token } = useToken();
     const [units, setUnits] = useState('lbs');
     
     return token ? <Dashboard units={units} setUnits={setUnits}/> : (

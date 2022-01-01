@@ -1,4 +1,4 @@
-import React, { useState, Component } from "react";
+import React, { useState } from "react";
 import Switch from "react-switch";
 
 const UnitToggle = (props) => {

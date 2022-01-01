@@ -1,10 +1,10 @@
 
 const express = require('express');
 const router = express.Router();
-const middleware = require('../middleware');
+const middleware = require('../middleware/verifyAuth.middleware');
 const User = require('../models/user');
 const Lift = require('../models/lift');
-const LiftInstance = require('../models/liftinstance');
+const LiftInstance = require('../models/liftInstance');
 
 const unitConversionMultiplier = 2.2046226218;
 

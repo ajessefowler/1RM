@@ -1,5 +1,3 @@
-import authHeader from './authHeader';
-
 const REGISTER_URL = 'http://localhost:3001/api/auth/register';
 const LOGIN_URL = 'http://localhost:3001/api/auth/login';
 const VERIFY_URL = 'http://localhost:3001/api/auth/isLoggedIn';

@@ -45,7 +45,7 @@ function Register({setToken}) {
         if (checkBtn.current.context._errors.length === 0) {
             AuthService.register(username, password)
             .then(data => {
-                if (localStorage.getItem('username') && localStorage.getItem('token') != 'null') {
+                if (localStorage.getItem('username') && localStorage.getItem('token') !== 'null') {
                     if (setToken) setToken(localStorage.getItem('token'));
                     history.push('/dashboard');
                 } else {

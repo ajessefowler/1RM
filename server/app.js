@@ -5,10 +5,9 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
 
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/userApi');
-const authRouter = require('./routes/auth');
-const apiRouter = require('./routes/api')
+const usersRouter = require('./routes/user.routes');
+const authRouter = require('./routes/auth.routes');
+const apiRouter = require('./routes/lift.routes')
 
 const app = express();
 
@@ -21,10 +20,6 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'))
   .catch(error => console.log(error));
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -32,7 +27,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
-app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/auth', authRouter);
 app.use('/api', apiRouter);

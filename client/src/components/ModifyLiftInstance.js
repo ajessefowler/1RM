@@ -17,7 +17,7 @@ const ModifyLiftInstance = (props) => {
 
     // Date is sent in MM-DD-YYYY and we need YYYY-MM-DD
     function formatDateString(dateString) {
-        const splitDate = dateString.split(/[\.\-\/]/);
+        const splitDate = dateString.split(/[.\-/]/);
         const month = splitDate[0];
         const day = splitDate[1];
         const year = splitDate[2];

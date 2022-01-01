@@ -12,12 +12,7 @@ function Lift(props) {
     const [modifyIsOpen, setModifyIsOpen] = useState(false);
     const BASE_URL = 'http://localhost:3001/api/';
 
-    const handleDelete = (event) => {
-        const url = 'http://localhost:3001/api/lifts/delete';
-        const input = { name: props.name, username: localStorage.getItem('username') };
-
-        event.preventDefault();
-
+    const openModifyLift = (event) => {
         setModifyIsOpen(true);
     }
 
@@ -39,11 +34,11 @@ function Lift(props) {
             .catch(error => {
                 console.error('Error:', error);
             });
-    }, [props.newInstance, deletedInstance, modifiedInstance, props.units]);
+    }, [props, id, props.newInstance, deletedInstance, modifiedInstance, props.units]);
 
     return (
         <div className="lift">
-            <FontAwesomeIcon icon={faPen} onClick={handleDelete} className="editLift" />
+            <FontAwesomeIcon icon={faPen} onClick={openModifyLift} className="editLift" />
             {modifyIsOpen ? <ModifyLift setRemovedLift={props.setRemovedLift} setModifyIsOpen={setModifyIsOpen} name={props.name}
                 id={id} setModifiedLift={props.setModifiedLift} /> : null }
             <div className="liftHeader">

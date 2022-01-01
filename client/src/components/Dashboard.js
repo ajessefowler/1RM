@@ -38,7 +38,7 @@ const Dashboard = (props) => {
             .catch(error => {
                 console.error('Error:', error);
             });
-    }, [newLift, removedLift, modifiedLift, accountIsOpen, props.units]);
+    }, [newLift, removedLift, modifiedLift, accountIsOpen, props, props.units]);
 
     if (!token) return <Login setToken={setToken} />;
     else return (
@@ -55,7 +55,7 @@ const Dashboard = (props) => {
                     </div>
                     <OneRepMaxForm loggedIn="true" lifts={lifts} setNewInstance={setNewInstance} units={props.units}/>
                 </div>
-                : <h2 className="welcome"></h2>}
+                : <p className="welcome"></p>}
             <div className="dash">
                 {lifts && lifts.length < 1 ?
                     <p>Add a lift to start tracking your e1RMs.</p> : null }

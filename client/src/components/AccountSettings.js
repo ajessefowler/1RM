@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import AuthService from '../services/auth';
 import UnitToggle from './UnitToggle';
 import ChangePasswordForm from "./ChangePasswordForm";
@@ -42,7 +42,7 @@ const AccountSettings = (props) => {
         })
             .then(response => response.json())
             .then(() => {
-                if (localStorage.getItem('units') == 'lbs') props.setUnits('kg');
+                if (localStorage.getItem('units') === 'lbs') props.setUnits('kg');
                 else props.setUnits('lbs');
             })
             .catch(error => {

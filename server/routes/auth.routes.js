@@ -3,7 +3,7 @@ const router = express.Router();
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const middleware = require('../middleware');
+const middleware = require('../middleware/verifyAuth.middleware');
 const tokenSecret = 'kl25aer67457hdfsh235';
 const rounds = 10;
 

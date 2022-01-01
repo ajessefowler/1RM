@@ -32,7 +32,7 @@ function OneRepMaxForm(props) {
     }
 
     const handleLiftSelect = (event) => {
-        if (event.target.value != 'Select a lift') setSelectedLift(event.target.value);
+        if (event.target.value !== 'Select a lift') setSelectedLift(event.target.value);
         else setSelectedLift(null);
     }
 
@@ -66,12 +66,12 @@ function OneRepMaxForm(props) {
 
         if (erm > 0) setMessage('Your e1RM is ' + Math.round(erm) + ' ' + units + '.');
         else setMessage('Calculate your e1RM.');
-    }, [props.units, units]);
+    }, [erm, props.units, units]);
 
     return (
         <div className="repmax">
             {localStorage.getItem('username')
-                ? <h2></h2>
+                ? <p></p>
                 : <h2 className="welcomeMsg">e1RM Calculator</h2>}
             <div className="formContainer">
                 <form className="rmform" onSubmit={handleSubmit}>

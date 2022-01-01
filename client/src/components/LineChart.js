@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import ModifyLiftInstance from './ModifyLiftInstance';
 
@@ -31,7 +31,7 @@ function getRandomIndex() {
 /* Check if color is already in map */
 function valueIsInMap(val) {
     for (let v of liftColors.values()) {
-        if (v == val) {
+        if (v === val) {
             return true;
         }
     }
@@ -159,9 +159,9 @@ const LineChart = (props) => {
     return (
         <div className="chart">
             <Line data={data} options={options} />
-            {(modifyIsOpen) ? <ModifyLiftInstance setModifyIsOpen={setModifyIsOpen} date={date} e1rm={e1rm}
-                reps={rep} weight={weight} id={instanceId} setDeletedInstance={props.setDeletedInstance}
-                setModifyIsOpen={setModifyIsOpen} setModifiedInstance={props.setModifiedInstance} units={props.units}/> : ''}
+            {(modifyIsOpen) ? <ModifyLiftInstance date={date} e1rm={e1rm} reps={rep} weight={weight} id={instanceId} 
+                setDeletedInstance={props.setDeletedInstance} setModifyIsOpen={setModifyIsOpen} 
+                setModifiedInstance={props.setModifiedInstance} units={props.units}/> : ''}
         </div>
     );
 };
