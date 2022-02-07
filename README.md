@@ -28,24 +28,25 @@ The names of each lift can be modified by clicking the pencil at the top right o
 
 ## API
 
-```/api
-/1rm
-/:userId/lifts
-/:liftId/instances
-/lifts/add
-/lifts/modify
-/lifts/delete
-/lifts/instances/add
-/lifts/instances/modify
-/lifts/instances/:instanceId/delete
-/auth
--- /login
--- /register
--- /changePassword/:userId
--- /isLoggedIn
-/users
--- /:userId/toggleUnits
--- /:userId/delete
+```
+/api
+-- /1rm
+-- /:userId/lifts
+-- /:liftId/instances
+-- /lifts/add
+-- /lifts/modify
+-- /lifts/delete
+-- /lifts/instances/add
+-- /lifts/instances/modify
+-- /lifts/instances/:instanceId/delete
+-- /auth
+---- /login
+---- /register
+---- /changePassword/:userId
+---- /isLoggedIn
+-- /users
+---- /:userId/toggleUnits
+---- /:userId/delete
 ```
 
 
