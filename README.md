@@ -26,6 +26,29 @@ The client should open in your default web browser. To use the application, begi
 
 The names of each lift can be modified by clicking the pencil at the top right of each card. This also allows you to delete a lift and all of its data points. The weight, number of reps, and date of any data point in any lift can be changed by clicking or tapping on the data point on the graph. Individual data points for a lift can also be deleted here. You may change the units or delete your account in the "My Account" panel, which is found next to the Log Out button.
 
+## API
+
+```/api
+/1rm
+/:userId/lifts
+/:liftId/instances
+/lifts/add
+/lifts/modify
+/lifts/delete
+/lifts/instances/add
+/lifts/instances/modify
+/lifts/instances/:instanceId/delete
+/auth
+-- /login
+-- /register
+-- /changePassword/:userId
+-- /isLoggedIn
+/users
+-- /:userId/toggleUnits
+-- /:userId/delete
+```
+
+
 ## Built With
 
 - Express
